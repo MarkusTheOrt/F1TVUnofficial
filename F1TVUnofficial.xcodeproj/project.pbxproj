@@ -8,18 +8,44 @@
 
 /* Begin PBXBuildFile section */
 		281803CA2330D6D70019A496 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803C92330D6D70019A496 /* AppDelegate.swift */; };
-		281803CC2330D6D70019A496 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803CB2330D6D70019A496 /* ViewController.swift */; };
 		281803CF2330D6D70019A496 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 281803CD2330D6D70019A496 /* Main.storyboard */; };
 		281803D12330D6D80019A496 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281803D02330D6D80019A496 /* Assets.xcassets */; };
+		281803D92330D7100019A496 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803D82330D7100019A496 /* HomeViewController.swift */; };
+		281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803DC2330D8A50019A496 /* LoginViewController.swift */; };
+		281803DF2330DDBA0019A496 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803DE2330DDBA0019A496 /* PlayerViewController.swift */; };
+		281803E62330EDEE0019A496 /* Formula1-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E12330E8A80019A496 /* Formula1-Bold.otf */; };
+		281803E72330EDF10019A496 /* Formula1-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E22330E8A80019A496 /* Formula1-Regular.otf */; };
+		281803E82330EDF40019A496 /* Formula1-Wide.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E32330E8A80019A496 /* Formula1-Wide.otf */; };
+		281803ED233106B70019A496 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803EC233106B70019A496 /* Types.swift */; };
+		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
+		28B7AF782334E64400EC9478 /* EventOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF772334E64400EC9478 /* EventOccurrence.swift */; };
+		28B7AF7B2334E6C800EC9478 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */; };
+		28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */; };
+		28B7AF7F2334E72400EC9478 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7E2334E72400EC9478 /* Episode.swift */; };
+		28B7AF812334E75700EC9478 /* GPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF802334E75700EC9478 /* GPHeader.swift */; };
+		28BFB1EB23353D7A000FF955 /* VOD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BFB1EA23353D7A000FF955 /* VOD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		281803C62330D6D60019A496 /* F1TVUnofficial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1TVUnofficial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		281803C92330D6D70019A496 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		281803CB2330D6D70019A496 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		281803CE2330D6D70019A496 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		281803D02330D6D80019A496 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		281803D22330D6D80019A496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		281803D82330D7100019A496 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		281803DC2330D8A50019A496 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		281803DE2330DDBA0019A496 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		281803E12330E8A80019A496 /* Formula1-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Bold.otf"; sourceTree = "<group>"; };
+		281803E22330E8A80019A496 /* Formula1-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Regular.otf"; sourceTree = "<group>"; };
+		281803E32330E8A80019A496 /* Formula1-Wide.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Wide.otf"; sourceTree = "<group>"; };
+		281803EC233106B70019A496 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Types.swift; path = ../Types.swift; sourceTree = "<group>"; };
+		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		28B7AF772334E64400EC9478 /* EventOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOccurrence.swift; sourceTree = "<group>"; };
+		28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
+		28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionOccurrence.swift; sourceTree = "<group>"; };
+		28B7AF7E2334E72400EC9478 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
+		28B7AF802334E75700EC9478 /* GPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPHeader.swift; sourceTree = "<group>"; };
+		28BFB1EA23353D7A000FF955 /* VOD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VOD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +78,58 @@
 		281803C82330D6D60019A496 /* F1TVUnofficial */ = {
 			isa = PBXGroup;
 			children = (
+				28B7AF792334E6C800EC9478 /* Components */,
+				281803E02330E8960019A496 /* Fonts */,
 				281803C92330D6D70019A496 /* AppDelegate.swift */,
-				281803CB2330D6D70019A496 /* ViewController.swift */,
 				281803CD2330D6D70019A496 /* Main.storyboard */,
 				281803D02330D6D80019A496 /* Assets.xcassets */,
 				281803D22330D6D80019A496 /* Info.plist */,
+				281803DB2330D71F0019A496 /* Views */,
+				28B7AF762334E5EF00EC9478 /* Types */,
 			);
 			path = F1TVUnofficial;
+			sourceTree = "<group>";
+		};
+		281803DB2330D71F0019A496 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				281803DC2330D8A50019A496 /* LoginViewController.swift */,
+				281803D82330D7100019A496 /* HomeViewController.swift */,
+				281803DE2330DDBA0019A496 /* PlayerViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		281803E02330E8960019A496 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				281803E12330E8A80019A496 /* Formula1-Bold.otf */,
+				281803E22330E8A80019A496 /* Formula1-Regular.otf */,
+				281803E32330E8A80019A496 /* Formula1-Wide.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		28B7AF762334E5EF00EC9478 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				281803EC233106B70019A496 /* Types.swift */,
+				28B7AF772334E64400EC9478 /* EventOccurrence.swift */,
+				28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */,
+				28B7AF7E2334E72400EC9478 /* Episode.swift */,
+				28B7AF802334E75700EC9478 /* GPHeader.swift */,
+				28BFB1EA23353D7A000FF955 /* VOD.swift */,
+				2873C5F2233B64D800D54538 /* Login.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		28B7AF792334E6C800EC9478 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +191,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				281803D12330D6D80019A496 /* Assets.xcassets in Resources */,
+				281803E72330EDF10019A496 /* Formula1-Regular.otf in Resources */,
+				281803E62330EDEE0019A496 /* Formula1-Bold.otf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
+				281803E82330EDF40019A496 /* Formula1-Wide.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,8 +205,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				281803CC2330D6D70019A496 /* ViewController.swift in Sources */,
+				281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */,
+				2873C5F3233B64D800D54538 /* Login.swift in Sources */,
+				281803DF2330DDBA0019A496 /* PlayerViewController.swift in Sources */,
+				281803ED233106B70019A496 /* Types.swift in Sources */,
 				281803CA2330D6D70019A496 /* AppDelegate.swift in Sources */,
+				28BFB1EB23353D7A000FF955 /* VOD.swift in Sources */,
+				281803D92330D7100019A496 /* HomeViewController.swift in Sources */,
+				28B7AF782334E64400EC9478 /* EventOccurrence.swift in Sources */,
+				28B7AF7B2334E6C800EC9478 /* VideoItemCell.swift in Sources */,
+				28B7AF7F2334E72400EC9478 /* Episode.swift in Sources */,
+				28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */,
+				28B7AF812334E75700EC9478 /* GPHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,12 +354,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.F1TVUnofficial;
+				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -288,12 +373,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.F1TVUnofficial;
+				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
