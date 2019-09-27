@@ -32,6 +32,8 @@ struct Event{
             let this = json["self"] as? String,
             let officialName = json["official_name"] as? String,
             let name = json["name"] as? String,
+            let images = json["image_urls"] as? [[String:String]],
+            let image = images.first!["url"],
             let sessions = json["sessionoccurrence_urls"] as? [[String:Any]]
             else{
                 return nil
@@ -39,6 +41,7 @@ struct Event{
         self.this = this
         self.officialName = officialName
         self.name = name
+        self.image = image
         
         for session in sessions{
             self.sessions.append(Session(json: session, gpName: name)!)
@@ -52,6 +55,7 @@ struct Event{
     var this: String = ""
     var officialName: String = ""
     var name: String = ""
+    var image: String = String()
     var sessions: [Session] = []
 }
 

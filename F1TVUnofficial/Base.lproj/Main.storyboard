@@ -98,9 +98,8 @@
                                     <segue destination="5eC-0i-FOE" kind="presentation" id="W6X-hm-kzp"/>
                                 </connections>
                             </button>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" prefetchingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GB6-6b-VlM">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" prefetchingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GB6-6b-VlM">
                                 <rect key="frame" x="0.0" y="470" width="1920" height="264"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="80" minimumInteritemSpacing="80" id="Nxo-Q4-bGY">
@@ -150,6 +149,7 @@
                             <constraint firstAttribute="trailing" secondItem="pDD-CE-Vyb" secondAttribute="trailing" id="XtZ-3W-Reg"/>
                             <constraint firstAttribute="trailing" secondItem="tGh-9F-5GL" secondAttribute="trailing" id="bZw-OQ-Dgt"/>
                             <constraint firstItem="5Bu-AM-5f9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="cit-Jy-7xz"/>
+                            <constraint firstItem="GB6-6b-VlM" firstAttribute="top" secondItem="Qsj-Yn-4yX" secondAttribute="bottom" constant="6" id="dMj-4R-U1z"/>
                             <constraint firstItem="Qsj-Yn-4yX" firstAttribute="top" secondItem="pDD-CE-Vyb" secondAttribute="bottom" constant="50" id="ueZ-g1-6Wz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KD6-5S-zfs"/>
@@ -173,7 +173,7 @@
         <!--Login View Controller-->
         <scene sceneID="dPC-Hk-hRf">
             <objects>
-                <viewController id="5eC-0i-FOE" customClass="LoginViewController" customModule="F1TVUnofficial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LVC" id="5eC-0i-FOE" customClass="LoginViewController" customModule="F1TVUnofficial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wOQ-7F-f3N"/>
                         <viewControllerLayoutGuide type="bottom" id="LOS-NC-Atc"/>
@@ -228,6 +228,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OWW-BJ-qIF">
+                                <rect key="frame" x="940" y="809" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Qkj-oK-2aI" firstAttribute="top" secondItem="da1-VI-AeY" secondAttribute="bottom" constant="52" id="CL9-ZW-Liw"/>
@@ -246,6 +250,7 @@
                         <viewLayoutGuide key="safeArea" id="ko0-Ab-5yl"/>
                     </view>
                     <connections>
+                        <outlet property="Indicator" destination="OWW-BJ-qIF" id="YBw-ca-YeR"/>
                         <outlet property="MailField" destination="wTF-o1-89t" id="474-KW-UN6"/>
                         <outlet property="PassField" destination="VA7-YS-9hk" id="RDi-qC-b20"/>
                         <outlet property="StatusLabel" destination="Qkj-oK-2aI" id="g3g-Kq-nyA"/>

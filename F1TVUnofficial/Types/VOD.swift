@@ -25,9 +25,13 @@ struct SeasonVODLoader{
                 seasonGroup.enter()
                 let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
                     if(error != nil){
-                        print(error.debugDescription)
+                        //print(error.debugDescription)
                     }
-                    
+                    guard let httpResponse = response as? HTTPURLResponse,
+                    (200...299).contains(httpResponse.statusCode) else{
+                        seasonGroup.leave()
+                        return;
+                    }
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
                         seasonObj = VODSeason(json: json)!
                         seasonGroup.leave()
@@ -38,6 +42,7 @@ struct SeasonVODLoader{
                 seasonGroup.leave()
             }
             seasonGroup.wait()
+            print("Season")
             
             
             var list: [VideoFile] = []
@@ -58,8 +63,14 @@ struct SeasonVODLoader{
                             if(error != nil){
                                 print(error.debugDescription)
                             }
-                            
-                            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
+                            guard let httpResponse = response as? HTTPURLResponse,
+                                (200...299).contains(httpResponse.statusCode) else{
+                                    
+                                    sessionGroup.leave()
+                                    return;
+                                    
+                            }
+                            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any] {
                                 
                                 let session = VODSession(json:json, grandPrix: grandPrix.name)
                                 

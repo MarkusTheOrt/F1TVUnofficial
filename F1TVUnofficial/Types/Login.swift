@@ -24,19 +24,28 @@ class LoginManager{
         if isLoggedIn{
             return isLoggedIn
         }
-        
+        if hasSavedData(){
+            loginFromSave()
+            return isLoggedIn
+        }
         return false
         
+    }
+    
+    func hasSavedData() -> Bool {
+        return UserDefaults.standard.object(forKey: "user") != nil && UserDefaults.standard.object(forKey: "pass") != nil
     }
     
     func loginWithCreds(user: String, pass: String){
         var request = URLRequest(url: URL(string: url)!)
         let body = "{\"Login\": \"\(user)\", \"Password\": \"\(pass)\"}"
         request.httpBody = body.data(using: .utf8)
+        self.user = user
+        self.pass = pass
         self.loginGroup.enter()
         loginTask(request: request)
         self.loginGroup.wait()
-        print(self.cookie)
+        
     }
     
     
@@ -57,6 +66,12 @@ class LoginManager{
         let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
             if(error != nil){
                 print(error.debugDescription)
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode) else {
+                    self.loginGroup.leave()
+                    return;
             }
             
             if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
@@ -82,6 +97,10 @@ class LoginManager{
                         
                         self.isLoggedIn = true;
                         self.firstName = firstName
+                        if self.user != "" && self.pass != "" {
+                            UserDefaults.standard.setValue(self.user, forKey: "user")
+                            UserDefaults.standard.setValue(self.pass, forKey: "pass")
+                        }
                         
                         self.delegate?.onLoginSuccess()
                         self.loginGroup.leave()
@@ -101,20 +120,26 @@ class LoginManager{
     
     func loginFromSave(){
         
+        if UserDefaults.standard.object(forKey: "user") == nil || UserDefaults.standard.object(forKey: "pass") == nil{
+            
+            return;
+        }
+        
         let body = "{\"Login\": \"\(UserDefaults.standard.string(forKey: "user")!)\", \"Password\": \"\(UserDefaults.standard.string(forKey: "pass")!)\"}"
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpBody = body.data(using: .utf8)
-        
+        self.loginGroup.enter()
         loginTask(request: request)
-        
+        self.loginGroup.leave()
         
     }
     
     private var cookie: String = String()
     private var isLoggedIn: Bool = false
     public var firstName: String = "Login"
-    public var hasSavedData: Bool = false
+    private var user: String = String()
+    private var pass: String = String()
     private let url = "https://api.formula1.com/v1/account/Subscriber/CreateSession"
     let loginGroup = DispatchGroup()
 }

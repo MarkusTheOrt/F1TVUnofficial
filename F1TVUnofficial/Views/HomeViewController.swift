@@ -51,9 +51,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-    func Login(){
-        
-    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  self.videos.count;
@@ -103,6 +101,21 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func updateHomeItems(event: Event){
+        if(event.image.isEmpty){
+            return;
+        }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: URL(string: event.image)!){
+                if let image = UIImage(data: data){
+                    DispatchQueue.main.async{
+                        UIView.transition(with: self!.PosterImage, duration: 1.0, options: .transitionCrossDissolve, animations: {
+                            self?.PosterImage.image = image
+                        })
+                        
+                    }
+                }
+            }
+        }
         DispatchQueue.global().async {
             self.homeEvent = event
             var replaySessions: [Session] = []
@@ -186,10 +199,23 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
+    func checkLoggedIn(){
+        if LoginManager.shared.loggedIn() ||
+            UserDefaults.standard.object(forKey: "user") != nil ||
+            UserDefaults.standard.object(forKey: "pass") != nil{
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil);
+            let controller = storyBoard.instantiateViewController(withIdentifier: "LVC") as! LoginViewController
+            
+            self.present(controller, animated: true)
+            return;
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkLoggedIn()
         DownloadSeasonItems()
         HomeTimer()
         VideoList.dataSource = self
@@ -242,6 +268,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 if(error != nil){
                     print(error.debugDescription)
                 }
+                guard let httpResponse = response as? HTTPURLResponse,
+                    (200...299).contains(httpResponse.statusCode) else {
+                        return;
+                }
                 
                 
                 let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
@@ -280,7 +310,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 if(error != nil){
                     print(error.debugDescription)
                 }
-                
+                guard let httpResponse = response as? HTTPURLResponse,
+                    (200...299).contains(httpResponse.statusCode) else {
+                        return;
+                }
                 
                 let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
                 let ViewUrl = json!["tokenised_url"] as? String
@@ -303,6 +336,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @IBAction func playVideo(_ sender: UIButton) {
+        
+        
+        return;
         DispatchQueue.main.async{
             self.present(LoginViewController(), animated: true)
             return;
@@ -323,9 +359,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         print(error.debugDescription)
                     }
                     
-                    
+                    guard let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode) else {
+                            return;
+                    }
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
-                        print(json)
+                        
                         DispatchQueue.main.sync {
                             if let ViewUrl = json["tokenised_url"] as? String{
                                 let player = AVPlayer(url: URL(string: ViewUrl)!)
@@ -363,7 +402,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     if(error != nil){
                         print(error.debugDescription)
                     }
-                    
+                    guard let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode) else {
+                            return;
+                    }
                     
                     let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
                     let ViewUrl = json!["tokenised_url"] as? String
