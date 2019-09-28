@@ -135,6 +135,16 @@ class LoginManager{
         
     }
     
+    func logout(){
+        cookie = String()
+        isLoggedIn = false
+        firstName = "Login"
+        user = String()
+        pass = String()
+        UserDefaults.standard.setValue(nil, forKey: "user")
+        UserDefaults.standard.setValue(nil, forKey: "pass")
+    }
+    
     public var cookie: String = String()
     private var isLoggedIn: Bool = false
     public var firstName: String = "Login"

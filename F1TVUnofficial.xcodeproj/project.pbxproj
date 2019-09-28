@@ -16,6 +16,7 @@
 		281803ED233106B70019A496 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803EC233106B70019A496 /* Types.swift */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
+		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
 		28B7AF782334E64400EC9478 /* EventOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF772334E64400EC9478 /* EventOccurrence.swift */; };
 		28B7AF7B2334E6C800EC9478 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */; };
 		28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */; };
@@ -36,6 +37,7 @@
 		281803EC233106B70019A496 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Types.swift; path = ../Types.swift; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		28B7AF772334E64400EC9478 /* EventOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOccurrence.swift; sourceTree = "<group>"; };
 		28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
 		28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionOccurrence.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				281803DC2330D8A50019A496 /* LoginViewController.swift */,
 				281803D82330D7100019A496 /* HomeViewController.swift */,
 				281803DE2330DDBA0019A496 /* PlayerViewController.swift */,
+				2873C5F6233F4E6900D54538 /* AccountViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			files = (
 				281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */,
 				2873C5F3233B64D800D54538 /* Login.swift in Sources */,
+				2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */,
 				281803DF2330DDBA0019A496 /* PlayerViewController.swift in Sources */,
 				281803ED233106B70019A496 /* Types.swift in Sources */,
 				281803CA2330D6D70019A496 /* AppDelegate.swift in Sources */,
@@ -346,12 +350,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -365,12 +371,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

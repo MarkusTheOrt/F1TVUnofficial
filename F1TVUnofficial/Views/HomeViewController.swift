@@ -149,6 +149,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         let lastSession = replaySessions.first!
                         self.SessionButton.setTitle(lastSession.name + " Replay", for: .normal)
                         self.SessionButton.isEnabled = true
+                        self.SessionButton.isHidden = false
                         UserDefaults.standard.setValue(lastSession.replays.first, forKey: "replayUrl")
                         UserDefaults.standard.setValue("replay", forKey: "mediaType")
                         UserDefaults.standard.synchronize()
@@ -157,6 +158,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         
                         self.SessionButton.setTitle(liveSession.name, for: .normal)
                         self.SessionButton.isEnabled = true
+                        self.SessionButton.isHidden = false
                         UserDefaults.standard.setValue(liveSession.replays.first, forKey: "liveUrl")
                         UserDefaults.standard.setValue("live", forKey: "mediaType")
                         UserDefaults.standard.synchronize()
@@ -228,6 +230,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.LoginButton.setTitle(LoginManager.shared.firstName, for: .normal)
         }
     }
+    @IBAction func OnAccountBtn(_ sender: Any){
+        if LoginManager.shared.loggedIn(){
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil);
+            let controller = storyBoard.instantiateViewController(withIdentifier: "AVC") as! AccountViewController
+            
+            self.present(controller, animated: true)
+        }else{
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil);
+            let controller = storyBoard.instantiateViewController(withIdentifier: "LVC") as! LoginViewController
+            
+            self.present(controller, animated: true)
+        }
+    }
+    
     
     @IBAction func OnLoggedIn(_ sender: LoginViewController){
         
