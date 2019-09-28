@@ -72,7 +72,7 @@ struct Session{
             let this = json["self"] as? String,
             let slug = json["slug"] as? String,
             let episodes = json["content_urls"] as? [String],
-            let replays = json["channel_urls"] as? [String],
+            let replays = json["channel_urls"] as? [[String:String]],
             let date = json["start_time"] as? String,
             let name = json["name"] as? String
             else{
@@ -95,7 +95,7 @@ struct Session{
     var slug: String = ""
     var startTime: Date = Date()
     var episodes: [String] = []
-    var replays: [String] = []
+    var replays: [[String:String]] = []
     var name: String = ""
     var GPName: String = ""
 }

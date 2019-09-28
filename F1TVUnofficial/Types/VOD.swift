@@ -167,7 +167,7 @@ struct VODSession{
         self.grandPrix = grandPrix
         
         if(self.status == "replay"){
-            self.replay = VideoFile(title: self.name + " Replay", thumbnail: self.image, assetType: "replay", assetId: "", channels: replayChannels, date: sessionTime, grandPrix: grandPrix)
+            self.replay = VideoFile(title: self.name + " Replay", thumbnail: self.image, assetType: "Replay", assetId: "", channels: replayChannels, date: sessionTime, grandPrix: grandPrix)
         }
         
         for video in videoContainers{
@@ -236,7 +236,8 @@ struct VideoFile{
         self.title = title
         self.thumbnail = thumbnail
         self.assetType = assetType
-        if(assetType == "replay")
+        // Live, Replay, VOD
+        if(assetType == "Replay")
         {
             self.title = grandPrix + " " + self.title
         }
@@ -245,16 +246,23 @@ struct VideoFile{
         self.date = date
         self.grandPrix = grandPrix
     }
+    
+    init(title: String, assetType: String, channels: [[String:String]]){
+        self.title = title
+        self.assetType = assetType
+        self.channels = channels
+    }
+    
     init(){
         
     }
     
-    var title: String = ""
-    var thumbnail: String = ""
-    var assetType: String = ""
-    var assetId: String = ""
+    var title: String = String()
+    var thumbnail: String = String()
+    var assetType: String = String()
+    var assetId: String = String()
     var channels: [[String:String]] = []
     var date: Date = Date()
-    var grandPrix: String = ""
+    var grandPrix: String = String()
     
 }

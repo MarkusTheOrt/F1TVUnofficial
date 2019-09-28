@@ -30,7 +30,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var PosterImage: UIImageView!
     @IBOutlet weak var SessionButton: UIButton!
     @IBOutlet weak var SelectedVideo: UILabel!
-    
+    var buttonFile = VideoFile()
     
     var videos:[VideoFile] = []
     
@@ -150,18 +150,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         self.SessionButton.setTitle(lastSession.name + " Replay", for: .normal)
                         self.SessionButton.isEnabled = true
                         self.SessionButton.isHidden = false
-                        UserDefaults.standard.setValue(lastSession.replays.first, forKey: "replayUrl")
-                        UserDefaults.standard.setValue("replay", forKey: "mediaType")
-                        UserDefaults.standard.synchronize()
+                        self.buttonFile = VideoFile(title: lastSession.name, assetType: "Replay", channels: lastSession.replays)
                     }
                     if liveSession.name != ""{
                         
                         self.SessionButton.setTitle(liveSession.name, for: .normal)
                         self.SessionButton.isEnabled = true
                         self.SessionButton.isHidden = false
-                        UserDefaults.standard.setValue(liveSession.replays.first, forKey: "liveUrl")
-                        UserDefaults.standard.setValue("live", forKey: "mediaType")
-                        UserDefaults.standard.synchronize()
+                        self.buttonFile = VideoFile(title: liveSession.name, assetType: "Live", channels: liveSession.replays)
                         
                         
                     }
@@ -250,12 +246,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        playEpisode(video: self.videos[indexPath.row])
+        //playEpisode(video: self.videos[indexPath.row])
+        VideoPlayer.shared.requestVideoURL(asset: self.videos[indexPath.row], context: self)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        print("TEST")
+        
         
     }
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -267,182 +264,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
-    func playEpisode(video: VideoFile){
-        if !LoginManager.shared.loggedIn(){ return; }
-        if(video.assetType == "VOD"){
-            let cookie = LoginManager.shared.cookie
-            let channelurl = video.assetId
-            let assetUrl = "{\"asset_url\":\"" + channelurl + "\"}";
-            var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
-            vRequest.httpBody = assetUrl.data(using: .utf8);
-            vRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-            vRequest.httpMethod = "POST"
-            vRequest.addValue("account-info=" + cookie, forHTTPHeaderField: "cookie")
-            
-            let vTask = URLSession.shared.dataTask(with: vRequest) { (data, response, error) ->
-                Void in
-                
-                if(error != nil){
-                    print(error.debugDescription)
-                }
-                guard let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode) else {
-                        return;
-                }
-                
-                
-                let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
-                let objects = json!["objects"] as? [Any]
-                let tataArray = objects?.first as? [String:Any]
-                let tata = tataArray?["tata"] as? [String:String]
-                let ViewUrl = tata?["tokenised_url"]
-                DispatchQueue.main.sync{
-                    let player = AVPlayer(url: URL(string: ViewUrl!)!)
-                    
-                    let controller = AVPlayerViewController()
-                    controller.player = player
-                    
-                    self.present(controller, animated: true){
-                        player.play()
-                    }
-                }
-                
-                
-            }
-            vTask.resume()
-        }else{
-            let cookie = LoginManager.shared.cookie
-            let channelurl = video.channels.first!["self"]
-            let assetUrl = "{\"channel_url\":\"" + channelurl! + "\"}";
-            print(assetUrl)
-            var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
-            vRequest.httpBody = assetUrl.data(using: .utf8);
-            vRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-            vRequest.httpMethod = "POST"
-            vRequest.addValue("account-info=" + cookie, forHTTPHeaderField: "cookie")
-            
-            let vTask = URLSession.shared.dataTask(with: vRequest) { (data, response, error) ->
-                Void in
-                
-                if(error != nil){
-                    print(error.debugDescription)
-                }
-                guard let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode) else {
-                        return;
-                }
-                
-                let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
-                let ViewUrl = json!["tokenised_url"] as? String
-                DispatchQueue.main.sync{
-                    let player = AVPlayer(url: URL(string: ViewUrl!)!)
-                    
-                    let controller = AVPlayerViewController()
-                    controller.player = player
-                    
-                    self.present(controller, animated: true){
-                        player.play()
-                    }
-                }
-                
-                
-            }
-            vTask.resume()
-        }
-        
-    }
     
     @IBAction func playVideo(_ sender: UIButton) {
         if !LoginManager.shared.loggedIn(){ return; }
-        DispatchQueue.main.async{
-            if(UserDefaults.standard.string(forKey: "mediaType") == "live"){
-                let cookie = LoginManager.shared.cookie
-                let channelurl = UserDefaults.standard.string(forKey: "liveUrl")!
-                let assetUrl = "{\"channel_url\":\"" + channelurl + "\"}";
-                var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
-                vRequest.httpBody = assetUrl.data(using: .utf8);
-                vRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-                vRequest.httpMethod = "POST"
-                vRequest.addValue("account-info=" + cookie, forHTTPHeaderField: "cookie")
-                
-                let vTask = URLSession.shared.dataTask(with: vRequest) { (data, response, error) ->
-                    Void in
-                    
-                    if(error != nil){
-                        print(error.debugDescription)
-                    }
-                    
-                    guard let httpResponse = response as? HTTPURLResponse,
-                        (200...299).contains(httpResponse.statusCode) else {
-                            return;
-                    }
-                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
-                        
-                        DispatchQueue.main.sync {
-                            if let ViewUrl = json["tokenised_url"] as? String{
-                                let player = AVPlayer(url: URL(string: ViewUrl)!)
-                                
-                                let controller = AVPlayerViewController()
-                                controller.player = player
-                                
-                                self.present(controller, animated: true){
-                                    player.play()
-                                }
-                            }
-                        }
-                        
-                        
-                    }
-                    
-                    
-                    
-                }
-                vTask.resume()
-            } else{
-                let cookie = LoginManager.shared.cookie
-                let channelurl = UserDefaults.standard.string(forKey: "replayUrl")!
-                let assetUrl = "{\"channel_url\":\"" + channelurl + "\"}";
-                print(assetUrl)
-                var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
-                vRequest.httpBody = assetUrl.data(using: .utf8);
-                vRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-                vRequest.httpMethod = "POST"
-                vRequest.addValue("account-info=" + cookie, forHTTPHeaderField: "cookie")
-                
-                let vTask = URLSession.shared.dataTask(with: vRequest) { (data, response, error) ->
-                    Void in
-                    
-                    if(error != nil){
-                        print(error.debugDescription)
-                    }
-                    guard let httpResponse = response as? HTTPURLResponse,
-                        (200...299).contains(httpResponse.statusCode) else {
-                            return;
-                    }
-                    
-                    let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]
-                    let ViewUrl = json!["tokenised_url"] as? String
-                    DispatchQueue.main.sync{
-                        let player = AVPlayer(url: URL(string: ViewUrl!)!)
-                        
-                        let controller = AVPlayerViewController()
-                        controller.player = player
-                        
-                        self.present(controller, animated: true){
-                            player.play()
-                        }
-                    }
-                    
-                    
-                }
-                vTask.resume()
-            }
-        }
         
-       
-        
-        
-    
+            
+        VideoPlayer.shared.requestVideoURL(asset: self.buttonFile, context: self)
         
         
     }
