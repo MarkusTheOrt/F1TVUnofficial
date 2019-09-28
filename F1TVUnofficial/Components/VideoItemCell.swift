@@ -22,7 +22,10 @@ class VideoItemCell: UICollectionViewCell   {
             if let data = try? Data(contentsOf: URL(string: video.thumbnail)!){
                 if let image = UIImage(data: data){
                     DispatchQueue.main.async{
-                        self?.Thumbnail.image = image
+                        UIView.transition(with: self!.Thumbnail, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                            self?.Thumbnail.image = image
+                        })
+                        
                     }
                 }
             }

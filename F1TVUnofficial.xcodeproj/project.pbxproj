@@ -13,11 +13,9 @@
 		281803D92330D7100019A496 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803D82330D7100019A496 /* HomeViewController.swift */; };
 		281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803DC2330D8A50019A496 /* LoginViewController.swift */; };
 		281803DF2330DDBA0019A496 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803DE2330DDBA0019A496 /* PlayerViewController.swift */; };
-		281803E62330EDEE0019A496 /* Formula1-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E12330E8A80019A496 /* Formula1-Bold.otf */; };
-		281803E72330EDF10019A496 /* Formula1-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E22330E8A80019A496 /* Formula1-Regular.otf */; };
-		281803E82330EDF40019A496 /* Formula1-Wide.otf in Resources */ = {isa = PBXBuildFile; fileRef = 281803E32330E8A80019A496 /* Formula1-Wide.otf */; };
 		281803ED233106B70019A496 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803EC233106B70019A496 /* Types.swift */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
+		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		28B7AF782334E64400EC9478 /* EventOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF772334E64400EC9478 /* EventOccurrence.swift */; };
 		28B7AF7B2334E6C800EC9478 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */; };
 		28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */; };
@@ -35,11 +33,9 @@
 		281803D82330D7100019A496 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		281803DC2330D8A50019A496 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		281803DE2330DDBA0019A496 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		281803E12330E8A80019A496 /* Formula1-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Bold.otf"; sourceTree = "<group>"; };
-		281803E22330E8A80019A496 /* Formula1-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Regular.otf"; sourceTree = "<group>"; };
-		281803E32330E8A80019A496 /* Formula1-Wide.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Formula1-Wide.otf"; sourceTree = "<group>"; };
 		281803EC233106B70019A496 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Types.swift; path = ../Types.swift; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		28B7AF772334E64400EC9478 /* EventOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOccurrence.swift; sourceTree = "<group>"; };
 		28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
 		28B7AF7C2334E6E700EC9478 /* SessionOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionOccurrence.swift; sourceTree = "<group>"; };
@@ -103,9 +99,7 @@
 		281803E02330E8960019A496 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				281803E12330E8A80019A496 /* Formula1-Bold.otf */,
-				281803E22330E8A80019A496 /* Formula1-Regular.otf */,
-				281803E32330E8A80019A496 /* Formula1-Wide.otf */,
+				2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -191,10 +185,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				281803D12330D6D80019A496 /* Assets.xcassets in Resources */,
-				281803E72330EDF10019A496 /* Formula1-Regular.otf in Resources */,
-				281803E62330EDEE0019A496 /* Formula1-Bold.otf in Resources */,
+				2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
-				281803E82330EDF40019A496 /* Formula1-Wide.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

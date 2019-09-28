@@ -200,9 +200,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func checkLoggedIn(){
-        if LoginManager.shared.loggedIn() ||
-            UserDefaults.standard.object(forKey: "user") != nil ||
-            UserDefaults.standard.object(forKey: "pass") != nil{
+        if !LoginManager.shared.loggedIn() ||
+            UserDefaults.standard.object(forKey: "user") == nil ||
+            UserDefaults.standard.object(forKey: "pass") == nil{
             
             let storyBoard = UIStoryboard(name: "Main", bundle: nil);
             let controller = storyBoard.instantiateViewController(withIdentifier: "LVC") as! LoginViewController
@@ -215,7 +215,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkLoggedIn()
+        
         DownloadSeasonItems()
         HomeTimer()
         VideoList.dataSource = self
@@ -223,7 +223,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        checkLoggedIn()
         if(LoginManager.shared.loggedIn()){
             self.LoginButton.setTitle(LoginManager.shared.firstName, for: .normal)
         }
@@ -252,8 +252,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func playEpisode(video: VideoFile){
+        if !LoginManager.shared.loggedIn(){ return; }
         if(video.assetType == "VOD"){
-            let cookie = UserDefaults.standard.string(forKey: "cookie")!
+            let cookie = LoginManager.shared.cookie
             let channelurl = video.assetId
             let assetUrl = "{\"asset_url\":\"" + channelurl + "\"}";
             var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
@@ -294,7 +295,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             vTask.resume()
         }else{
-            let cookie = UserDefaults.standard.string(forKey: "cookie")!
+            let cookie = LoginManager.shared.cookie
             let channelurl = video.channels.first!["self"]
             let assetUrl = "{\"channel_url\":\"" + channelurl! + "\"}";
             print(assetUrl)
@@ -336,14 +337,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @IBAction func playVideo(_ sender: UIButton) {
-        
-        
-        return;
+        if !LoginManager.shared.loggedIn(){ return; }
         DispatchQueue.main.async{
-            self.present(LoginViewController(), animated: true)
-            return;
             if(UserDefaults.standard.string(forKey: "mediaType") == "live"){
-                let cookie = UserDefaults.standard.string(forKey: "cookie")!
+                let cookie = LoginManager.shared.cookie
                 let channelurl = UserDefaults.standard.string(forKey: "liveUrl")!
                 let assetUrl = "{\"channel_url\":\"" + channelurl + "\"}";
                 var vRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/viewings/")!)
@@ -386,7 +383,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
                 vTask.resume()
             } else{
-                let cookie = UserDefaults.standard.string(forKey: "cookie")!
+                let cookie = LoginManager.shared.cookie
                 let channelurl = UserDefaults.standard.string(forKey: "replayUrl")!
                 let assetUrl = "{\"channel_url\":\"" + channelurl + "\"}";
                 print(assetUrl)

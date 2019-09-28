@@ -131,11 +131,11 @@ class LoginManager{
         request.httpBody = body.data(using: .utf8)
         self.loginGroup.enter()
         loginTask(request: request)
-        self.loginGroup.leave()
+        self.loginGroup.wait()
         
     }
     
-    private var cookie: String = String()
+    public var cookie: String = String()
     private var isLoggedIn: Bool = false
     public var firstName: String = "Login"
     private var user: String = String()
