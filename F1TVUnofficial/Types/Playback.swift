@@ -16,9 +16,8 @@ protocol VideoPlayerDelegate{
 
 class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
     
-    
+    // TVOS 13 Channel flipping for different cameras
     func playerViewController(_ playerViewController: AVPlayerViewController, skipToNextChannel completion: @escaping (Bool) -> Void) {
-        print("test")
         self.nextChannel()
         let url = self.liveRequestRet()
         let playerItem = AVPlayerItem(url: URL(string: url)!)
@@ -28,8 +27,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
     }
     
     func playerViewController(_ playerViewController: AVPlayerViewController, skipToPreviousChannel completion: @escaping (Bool) -> Void) {
-        print("test")
-        self.nextChannel()
+        self.prevChannel()
         let url = self.liveRequestRet()
         let playerItem = AVPlayerItem(url: URL(string: url)!)
         self.View.player?.replaceCurrentItem(with: playerItem)
@@ -92,6 +90,17 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         }
         
     }
+    
+    private func prevChannel(){
+        if asset.channels.count > 0 &&  channelIdx < asset.channels.count{
+            if channelIdx - 1 < 0{
+                channelIdx = asset.channels.count - 1;
+                return;
+            }
+            channelIdx = channelIdx - 1;
+        }
+    }
+    
     
     private func liveRequestRet() -> String{
         let httpBody = "{\"channel_url\":\"\(self.asset.channels[self.channelIdx]["self"]!)\"}"
@@ -219,7 +228,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
             var metadata: [AVMetadataItem] = []
             let titleItem = AVMutableMetadataItem()
             titleItem.identifier = .commonIdentifierTitle
-            titleItem.value = self.asset.title as? NSCopying & NSObjectProtocol
+            titleItem.value = self.asset.title as NSCopying & NSObjectProtocol
             titleItem.extendedLanguageTag = "und"
             metadata.append(titleItem.copy() as! AVMetadataItem)
             playerItem.externalMetadata = metadata;
@@ -237,7 +246,6 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         DispatchQueue.main.sync{
             self.View.player = self.player
             self.View.delegate = self
-            self.View.isSkipForwardEnabled = true
             
             context.present(self.View, animated: true){
                 
