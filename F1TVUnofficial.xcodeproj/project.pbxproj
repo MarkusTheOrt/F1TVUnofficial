@@ -14,6 +14,8 @@
 		281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803DC2330D8A50019A496 /* LoginViewController.swift */; };
 		281803ED233106B70019A496 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281803EC233106B70019A496 /* Types.swift */; };
 		2824D045233F99B0004E63D4 /* Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2824D044233F99B0004E63D4 /* Playback.swift */; };
+		2833C8B923409647008C7034 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8B723409647008C7034 /* OverlayViewController.swift */; };
+		2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8B823409647008C7034 /* OverlayViewController.xib */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
@@ -35,6 +37,8 @@
 		281803DC2330D8A50019A496 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		281803EC233106B70019A496 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Types.swift; path = ../Types.swift; sourceTree = "<group>"; };
 		2824D044233F99B0004E63D4 /* Playback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playback.swift; sourceTree = "<group>"; };
+		2833C8B723409647008C7034 /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
+		2833C8B823409647008C7034 /* OverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				281803DC2330D8A50019A496 /* LoginViewController.swift */,
 				281803D82330D7100019A496 /* HomeViewController.swift */,
 				2873C5F6233F4E6900D54538 /* AccountViewController.swift */,
+				2833C8B723409647008C7034 /* OverlayViewController.swift */,
+				2833C8B823409647008C7034 /* OverlayViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 				281803D12330D6D80019A496 /* Assets.xcassets in Resources */,
 				2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
+				2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +216,7 @@
 				281803D92330D7100019A496 /* HomeViewController.swift in Sources */,
 				2824D045233F99B0004E63D4 /* Playback.swift in Sources */,
 				28B7AF782334E64400EC9478 /* EventOccurrence.swift in Sources */,
+				2833C8B923409647008C7034 /* OverlayViewController.swift in Sources */,
 				28B7AF7B2334E6C800EC9478 /* VideoItemCell.swift in Sources */,
 				28B7AF7F2334E72400EC9478 /* Episode.swift in Sources */,
 				28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */,

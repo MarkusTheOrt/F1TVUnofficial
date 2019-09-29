@@ -32,6 +32,8 @@ class LoginManager{
         
     }
     
+    
+    
     func hasSavedData() -> Bool {
         return UserDefaults.standard.object(forKey: "user") != nil && UserDefaults.standard.object(forKey: "pass") != nil
     }

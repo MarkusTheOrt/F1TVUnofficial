@@ -14,7 +14,7 @@ protocol VideoPlayerDelegate{
     func onVideoEnded()
 }
 
-class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
+class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource{
     
     // TVOS 13 Channel flipping for different cameras
     func playerViewController(_ playerViewController: AVPlayerViewController, skipToNextChannel completion: @escaping (Bool) -> Void) {
@@ -50,11 +50,20 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
     private var player = AVPlayer()
     private var View = AVPlayerViewController()
     private var hasSource = false
-    private var asset = VideoFile()
+    public var asset = VideoFile()
     private var channelIdx = 0
     
     public func getPlayer() -> AVPlayer{
         return player
+    }
+    
+    public func changeToChannel(id: Int){
+        channelIdx = id;
+        let time = self.player.currentTime()
+        let url = self.liveRequestRet()
+        let playerItem = AVPlayerItem(url: URL(string: url)!)
+        self.View.player?.replaceCurrentItem(with: playerItem)
+        self.player.seek(to: time)
     }
     
     public func requestVideoURL(asset: VideoFile, context: UIViewController){
@@ -178,6 +187,19 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         self.presentView(context: context)
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.asset.channels.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        
+        cell.textLabel!.text = self.asset.channels[indexPath.row]["name"];
+        
+        return cell;
+    }
+    
+  
     
     
     private func VODRequest(_ context: UIViewController){
@@ -238,6 +260,8 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         hasSource = true
     }
     
+    private let overlayController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
+    
     public func presentView(context: UIViewController){
         if !hasSource { return }
         
@@ -246,6 +270,11 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         DispatchQueue.main.sync{
             self.View.player = self.player
             self.View.delegate = self
+            if #available(tvOS 13.0, *) {
+                self.View.customOverlayViewController = self.overlayController
+            } else {
+                // Fallback on earlier versions
+            }
             
             context.present(self.View, animated: true){
                 
