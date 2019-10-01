@@ -14,7 +14,9 @@ protocol VideoPlayerDelegate{
     func onVideoEnded()
 }
 
-class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource{
+class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
+    
+
     
     // TVOS 13 Channel flipping for different cameras
     func playerViewController(_ playerViewController: AVPlayerViewController, skipToNextChannel completion: @escaping (Bool) -> Void) {
@@ -58,6 +60,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegat
     }
     
     public func changeToChannel(id: Int){
+        if channelIdx == id { return; }
         channelIdx = id;
         let time = self.player.currentTime()
         let url = self.liveRequestRet()
@@ -84,6 +87,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegat
             default:
                 break;
             }
+            
         }
     }
     
@@ -260,7 +264,6 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegat
         hasSource = true
     }
     
-    private let overlayController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
     
     public func presentView(context: UIViewController){
         if !hasSource { return }
@@ -268,10 +271,18 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate, UITableViewDelegat
         
         
         DispatchQueue.main.sync{
-            self.View.player = self.player
-            self.View.delegate = self
+            
             if #available(tvOS 13.0, *) {
-                self.View.customOverlayViewController = self.overlayController
+                if self.asset.channels.count > 1{
+                    self.View = AVPlayerViewController()
+                    self.View.customOverlayViewController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
+                }else{
+                    self.View = AVPlayerViewController()
+                    
+                }
+                self.View.player = self.player
+                self.View.delegate = self
+                
             } else {
                 // Fallback on earlier versions
             }

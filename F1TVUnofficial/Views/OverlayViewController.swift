@@ -13,7 +13,6 @@ class OverlayViewController: UIViewController, UITabBarDelegate {
     
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("Test")
         VideoPlayer.shared.changeToChannel(id: item.tag)
     }
     

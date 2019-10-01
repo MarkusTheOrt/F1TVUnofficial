@@ -16,6 +16,8 @@
 		2824D045233F99B0004E63D4 /* Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2824D044233F99B0004E63D4 /* Playback.swift */; };
 		2833C8B923409647008C7034 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8B723409647008C7034 /* OverlayViewController.swift */; };
 		2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8B823409647008C7034 /* OverlayViewController.xib */; };
+		2833C8BD23428677008C7034 /* SeasonSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */; };
+		2833C8BE23428677008C7034 /* SeasonSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
@@ -39,6 +41,8 @@
 		2824D044233F99B0004E63D4 /* Playback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playback.swift; sourceTree = "<group>"; };
 		2833C8B723409647008C7034 /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		2833C8B823409647008C7034 /* OverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
+		2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeasonSelectViewController.swift; path = Views/SeasonSelectViewController.swift; sourceTree = "<group>"; };
+		2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SeasonSelectViewController.xib; path = Views/SeasonSelectViewController.xib; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				281803D22330D6D80019A496 /* Info.plist */,
 				281803DB2330D71F0019A496 /* Views */,
 				28B7AF762334E5EF00EC9478 /* Types */,
+				2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */,
+				2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */,
 			);
 			path = F1TVUnofficial;
 			sourceTree = "<group>";
@@ -194,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				281803D12330D6D80019A496 /* Assets.xcassets in Resources */,
+				2833C8BE23428677008C7034 /* SeasonSelectViewController.xib in Resources */,
 				2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
 				2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */,
@@ -221,6 +228,7 @@
 				28B7AF7F2334E72400EC9478 /* Episode.swift in Sources */,
 				28B7AF7D2334E6E700EC9478 /* SessionOccurrence.swift in Sources */,
 				28B7AF812334E75700EC9478 /* GPHeader.swift in Sources */,
+				2833C8BD23428677008C7034 /* SeasonSelectViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,14 +366,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -380,14 +388,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markusort.foneunofficial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "Ferrarix1.png",
+      "filename" : "Textx1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "tv",
-      "filename" : "Ferrari.png",
+      "filename" : "Text.png",
       "scale" : "2x"
     }
   ],

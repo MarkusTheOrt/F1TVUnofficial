@@ -8,6 +8,179 @@
 
 import Foundation
 
+protocol CMDelegate{
+    func onSeasonLoaded(_ events: [EventMinimal]);
+}
+
+class ContentManager{
+    
+    
+    var delegate: CMDelegate?
+    static var shared = ContentManager()
+    
+    
+    private let apiUrl = "https://f1tv.formula1.com/api/race-season/?fields=year,name,self,has_content&order=-year"
+    
+    private var seasons: [SeasonMinimal] = []
+    private var hasSeasons = false
+    private var cachedEvents: [Int:[EventMinimal]] = [:]
+    
+    func getGrandPrixforSeason(season: SeasonMinimal) -> [EventMinimal]{
+        if(cachedEvents[season.year]!.count == 0){
+            delegate?.onSeasonLoaded(self.getGPsForSeason(season))
+            return cachedEvents[season.year]!
+        }
+        delegate?.onSeasonLoaded(cachedEvents[season.year]!)
+        return cachedEvents[season.year]!
+    }
+    
+    
+    func GetSeasons() ->[SeasonMinimal] {
+        if hasSeasons == true{
+            return self.seasons
+        }
+        let seasonGroup = DispatchGroup()
+        GetSeasons(seasonGroup)
+        return self.seasons
+    }
+    
+    func GetSeasons(_ AsyncGroup: DispatchGroup?){
+        AsyncGroup?.enter()
+        DispatchQueue.global().async{
+            var request = URLRequest(url: URL(string: self.apiUrl)!);
+            if(LoginManager.shared.loggedIn()) {
+                request.addValue(LoginManager.shared.cookie, forHTTPHeaderField: "cookie")
+            }
+            request.addValue("en-en", forHTTPHeaderField: "accept-language")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
+                if(error != nil){
+                    print(error.debugDescription)
+                }
+                guard let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode) else{
+                    AsyncGroup?.leave()
+                    return;
+                }
+                if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:[[String:Any]]]{
+                    for season in json["objects"]!{
+                        self.seasons.append(SeasonMinimal(json:season)!)
+                        self.cachedEvents[self.seasons.last!.year] = []
+                    }
+                    
+                    self.hasSeasons = self.seasons.count > 0
+                }
+                
+                AsyncGroup?.leave()
+            }
+            task.resume()
+            
+        }
+        AsyncGroup?.wait()
+    }
+    
+    func getGPsForSeason(_ season: SeasonMinimal) -> [EventMinimal]{
+        
+        if(!season.hasContent){ return [] }
+        let group = DispatchGroup()
+        
+        let url = "https://f1tv.formula1.com/\(season.this)?fields=eventoccurrence_urls,eventoccurrence_urls__self,eventoccurrence_urls__official_name,eventoccurrence_urls__start_date&fields_to_expand=eventoccurrence_urls";
+        var request = URLRequest(url: URL(string: url)!)
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("en-en", forHTTPHeaderField: "accept-language")
+        group.enter()
+        let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
+            if(error != nil){
+                print(error.debugDescription)
+                group.leave()
+            }
+            guard let httpResponse = response as? HTTPURLResponse,
+            (200...299).contains(httpResponse.statusCode) else{
+                group.leave()
+                return;
+            }
+            
+            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:[[String:String]]]{
+                for jsEvent in json["eventoccurrence_urls"]!{
+                    let Event = EventMinimal(json: jsEvent)!
+                    if Event.date < Date(){
+                        self.cachedEvents[season.year]!.append(Event)
+                    }
+                    
+                }
+                
+            }
+            group.leave()
+            
+        }
+        task.resume()
+        
+        group.wait()
+        delegate?.onSeasonLoaded(self.cachedEvents[season.year]!)
+        
+        return self.cachedEvents[season.year]!
+    }
+    
+    
+}
+
+struct EventMinimal{
+    
+    init?(json: [String:String]){
+        guard
+            let this = json["self"],
+            let date = json["start_date"],
+            let name = json["official_name"]
+            else{
+                return;
+        }
+        
+        self.this = this
+        self.name = name
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        self.date = dateFormatter.date(from: date) ?? Date(timeIntervalSince1970: 0)
+        
+    }
+    
+    var this = String()
+    var date = Date()
+    var name = String()
+}
+
+struct SeasonMinimal{
+    
+    
+    init?(json: [String:Any]){
+        
+        guard
+            let this = json["self"] as? String,
+            let year = json["year"] as? Int,
+            let hasContent = json["has_content"] as? Bool,
+            let name = json["name"] as? String
+            else {
+                return;
+        }
+        
+        self.this = this;
+        self.year = year;
+        self.hasContent = hasContent;
+        self.name = name;
+        
+    }
+    
+    
+    
+    var this = String();
+    var year = 0;
+    var hasContent = false;
+    var name = String();
+    
+}
+
+
+
 struct SeasonVODLoader{
     
     init?(uid: String, completion: @escaping ([VideoFile]) -> ()){

@@ -80,12 +80,6 @@
                                 </constraints>
                                 <blurEffect style="regular"/>
                             </visualEffectView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsj-Yn-4yX">
-                                <rect key="frame" x="90" y="418" width="121" height="46"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="38"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Bu-AM-5f9">
                                 <rect key="frame" x="873.5" y="68" width="173" height="65"/>
                                 <constraints>
@@ -95,6 +89,17 @@
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="OnAccountBtn:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="NRF-Lg-jFO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpT-3v-CWH">
+                                <rect key="frame" x="860.5" y="395" width="199" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="oh8-PF-fPK"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="40" minY="10" maxX="40" maxY="10"/>
+                                <state key="normal" title="Recent"/>
+                                <connections>
+                                    <action selector="SelectSeason:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="fLS-bd-hYB"/>
                                 </connections>
                             </button>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" prefetchingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GB6-6b-VlM">
@@ -140,22 +145,22 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tGh-9F-5GL" firstAttribute="top" secondItem="KD6-5S-zfs" secondAttribute="top" constant="240" id="3fe-Ed-u4r"/>
-                            <constraint firstItem="Qsj-Yn-4yX" firstAttribute="leading" secondItem="KD6-5S-zfs" secondAttribute="leading" id="4ED-0l-PLY"/>
-                            <constraint firstItem="Qsj-Yn-4yX" firstAttribute="leading" secondItem="KD6-5S-zfs" secondAttribute="leading" id="6cy-VB-Zex"/>
                             <constraint firstItem="pDD-CE-Vyb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7C0-D1-9wo"/>
                             <constraint firstItem="tGh-9F-5GL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JiA-bh-5kP"/>
+                            <constraint firstItem="RpT-3v-CWH" firstAttribute="top" secondItem="tGh-9F-5GL" secondAttribute="bottom" constant="25" id="RCo-NK-VGC"/>
                             <constraint firstItem="5Bu-AM-5f9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SYY-rB-Hbv"/>
                             <constraint firstItem="pDD-CE-Vyb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TfX-NM-ENf"/>
                             <constraint firstAttribute="trailing" secondItem="pDD-CE-Vyb" secondAttribute="trailing" id="XtZ-3W-Reg"/>
                             <constraint firstAttribute="trailing" secondItem="tGh-9F-5GL" secondAttribute="trailing" id="bZw-OQ-Dgt"/>
                             <constraint firstItem="5Bu-AM-5f9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="cit-Jy-7xz"/>
-                            <constraint firstItem="Qsj-Yn-4yX" firstAttribute="top" secondItem="pDD-CE-Vyb" secondAttribute="bottom" constant="50" id="ueZ-g1-6Wz"/>
+                            <constraint firstItem="RpT-3v-CWH" firstAttribute="centerX" secondItem="KD6-5S-zfs" secondAttribute="centerX" id="wAp-Zo-LVq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KD6-5S-zfs"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="CurrentGP" destination="t24-H4-D3C" id="rtR-im-arO"/>
+                        <outlet property="EventBtn" destination="RpT-3v-CWH" id="1T7-Nd-Qf4"/>
                         <outlet property="LoginButton" destination="5Bu-AM-5f9" id="4GQ-XH-osO"/>
                         <outlet property="NextSession" destination="UCZ-Fx-KMc" id="A4d-XG-oMQ"/>
                         <outlet property="PosterImage" destination="pDD-CE-Vyb" id="08i-HC-hop"/>

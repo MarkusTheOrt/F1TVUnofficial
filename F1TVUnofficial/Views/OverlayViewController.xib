@@ -14,7 +14,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tabBar contentMode="scaleToFill" id="152-MX-gRs">
+        <tabBar contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="152-MX-gRs">
             <rect key="frame" x="0.0" y="0.0" width="1500" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, loginDelegate {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, loginDelegate, EventSelectDelegate {
     
     func onLoginError(_ message: String) {
         
@@ -30,6 +30,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var PosterImage: UIImageView!
     @IBOutlet weak var SessionButton: UIButton!
     @IBOutlet weak var SelectedVideo: UILabel!
+    @IBOutlet weak var EventBtn: UIButton!
+    
     var buttonFile = VideoFile()
     
     var videos:[VideoFile] = []
@@ -71,6 +73,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     var homeEvent = Event()
     var timer = Timer()
+    
+    func OnNewEvent(_ event: EventMinimal) {
+        self.EventBtn.setTitle(event.name, for: .normal)
+        DispatchQueue.global().async{
+            print("Insert new videos and a lot less :-)")
+        }
+    }
+    
     
     func HomeTimer(){
        self.timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true, block: {(event) -> Void in
@@ -162,7 +172,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         
                     }
                     
-                    
+                    self.EventBtn.setTitle(event.officialName, for: .normal)
                 }, completion: nil)
             }
         }
@@ -240,6 +250,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    @IBAction func SelectSeason(_ sender: UIButton){
+        let SeasonList = SeasonSelectViewController(nibName: "SeasonSelectViewController", bundle: nil)
+        SeasonList.delegate = self
+        SeasonList.modalPresentationStyle = .blurOverFullScreen
+        
+        self.show(SeasonList, sender: sender)
+        //self.present(SeasonList, animated: true)
+    }
     
     @IBAction func OnLoggedIn(_ sender: LoginViewController){
         
