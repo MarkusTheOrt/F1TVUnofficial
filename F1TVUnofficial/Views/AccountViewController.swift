@@ -18,6 +18,9 @@ class AccountViewController: UIViewController {
             self.dismiss(animated: true)
         }
         AccountLabel.text = "Hello \(LoginManager.shared.firstName)"
+        
+        
+        
         // Do any additional setup after loading the view.
     }
 

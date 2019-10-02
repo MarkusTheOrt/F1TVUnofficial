@@ -18,6 +18,10 @@ class VideoItemCell: UICollectionViewCell   {
     
     func configureCell(video: VideoFile ){
         
+        guard !video.title.isEmpty
+            else{
+                return;
+        }
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: URL(string: video.thumbnail)!){
                 if let image = UIImage(data: data){

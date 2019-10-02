@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, loginDelegate, EventSelectDelegate {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, loginDelegate, EventSelectDelegate, GPEventDelegate {
     
     func onLoginError(_ message: String) {
         
@@ -18,9 +18,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func onLoginSuccess() {
         
     }
-    
- 
-    
     
     
     @IBOutlet weak var LoginButton : UIButton!
@@ -31,6 +28,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var SessionButton: UIButton!
     @IBOutlet weak var SelectedVideo: UILabel!
     @IBOutlet weak var EventBtn: UIButton!
+    @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
     
     var buttonFile = VideoFile()
     
@@ -39,7 +37,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     required init?(coder: NSCoder){
         super.init(coder: coder)
-        
+        GPEvents.shared.delegate = self
         
         let initGroup = DispatchGroup()
         
@@ -53,15 +51,25 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-
+    func onGPLoaded() {
+        GPEvents.shared.episodes = GPEvents.shared.episodes.sorted(by: {$0.date > $1.date});
+        
+        DispatchQueue.main.sync{
+            self.VideoList.reloadData()
+            self.ActivityIndicator.stopAnimating()
+            UIView.transition(with: self.VideoList, duration: 1.0, options: .transitionCrossDissolve, animations: {
+                self.VideoList.isHidden = false
+            })
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  self.videos.count;
+        return  GPEvents.shared.episodes.count;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as? VideoItemCell{
-            cell.configureCell(video: videos[indexPath.row])
+            cell.configureCell(video: GPEvents.shared.episodes[indexPath.row])
             
             return cell
         }
@@ -76,8 +84,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func OnNewEvent(_ event: EventMinimal) {
         self.EventBtn.setTitle(event.name, for: .normal)
+        self.ActivityIndicator.startAnimating()
+        UIView.transition(with: self.VideoList, duration: 1.0, options: .transitionCrossDissolve, animations: {
+            self.VideoList.isHidden = true
+            self.SelectedVideo.text = ""
+            
+        })
         DispatchQueue.global().async{
-            print("Insert new videos and a lot less :-)")
+            GPEvents.shared.getEvents(eventStr: event.this)
         }
     }
     
@@ -128,6 +142,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         DispatchQueue.global().async {
             self.homeEvent = event
+            
+            GPEvents.shared.getEvents(eventStr: event.this)
             var replaySessions: [Session] = []
             var upcomingSessions: [Session] = []
             var liveSession: Session = Session()
@@ -189,12 +205,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func DownloadSeasonItems(){
-        _ = SeasonVODLoader(uid: "/api/race-season/current/"){(VideoArray) -> Void in
-            self.videos = VideoArray.sorted(by: {$0.date > $1.date})
-            DispatchQueue.main.async {
-                self.VideoList.reloadData()
-            }
-        }
+        
     }
     
     func DownloadHomeSets(){
@@ -224,10 +235,23 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DownloadSeasonItems()
+        //DownloadSeasonItems()
         HomeTimer()
         VideoList.dataSource = self
         VideoList.delegate = self
+        
+        let focusGuide = UIFocusGuide()
+        view.addLayoutGuide(focusGuide)
+        
+        focusGuide.preferredFocusEnvironments = [self.EventBtn]
+        
+        focusGuide.topAnchor.constraint(equalTo: self.EventBtn.topAnchor).isActive = true
+        focusGuide.leftAnchor.constraint(equalTo: self.VideoList.leftAnchor).isActive = true
+        focusGuide.rightAnchor.constraint(equalTo: self.VideoList.rightAnchor).isActive = true
+        focusGuide.heightAnchor.constraint(equalTo: self.EventBtn.heightAnchor).isActive = true
+        focusGuide.widthAnchor.constraint(equalTo: self.VideoList.widthAnchor).isActive = true
+
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -253,7 +277,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBAction func SelectSeason(_ sender: UIButton){
         let SeasonList = SeasonSelectViewController(nibName: "SeasonSelectViewController", bundle: nil)
         SeasonList.delegate = self
-        SeasonList.modalPresentationStyle = .blurOverFullScreen
+        //SeasonList.modalPresentationStyle = .blurOverFullScreen
         
         self.show(SeasonList, sender: sender)
         //self.present(SeasonList, animated: true)
@@ -265,7 +289,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //playEpisode(video: self.videos[indexPath.row])
-        VideoPlayer.shared.requestVideoURL(asset: self.videos[indexPath.row], context: self)
+        VideoPlayer.shared.requestVideoURL(asset: GPEvents.shared.episodes[indexPath.row], context: self)
         
     }
     
@@ -276,7 +300,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if let focusIndex = context.nextFocusedIndexPath{
             UIView.transition(with: self.SelectedVideo, duration:1.0, options: .transitionCrossDissolve, animations:{
-                self.SelectedVideo.text = self.videos[focusIndex.row].title
+                
+                self.SelectedVideo.text = GPEvents.shared.episodes[focusIndex.row].title
             }, completion: nil)
         }
         

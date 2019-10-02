@@ -66,9 +66,10 @@ class ContentManager{
                     for season in json["objects"]!{
                         self.seasons.append(SeasonMinimal(json:season)!)
                         self.cachedEvents[self.seasons.last!.year] = []
+                        self.hasSeasons = true
                     }
                     
-                    self.hasSeasons = self.seasons.count > 0
+                    
                 }
                 
                 AsyncGroup?.leave()
@@ -99,16 +100,15 @@ class ContentManager{
                 group.leave()
                 return;
             }
-            
-            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:[[String:String]]]{
-                for jsEvent in json["eventoccurrence_urls"]!{
+            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
+                
+                for jsEvent in (json["eventoccurrence_urls"] as? [[String:Any]])!{
                     let Event = EventMinimal(json: jsEvent)!
                     if Event.date < Date(){
                         self.cachedEvents[season.year]!.append(Event)
                     }
                     
                 }
-                
             }
             group.leave()
             
@@ -126,21 +126,21 @@ class ContentManager{
 
 struct EventMinimal{
     
-    init?(json: [String:String]){
+    init?(json: [String:Any]){
         guard
-            let this = json["self"],
-            let date = json["start_date"],
-            let name = json["official_name"]
+            let this = json["self"] as? String,
+            let name = json["official_name"] as? String
             else{
                 return;
         }
         
+        let date = json["start_date"] as? String ?? String("1970-01-01")
         self.this = this
         self.name = name
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
-        self.date = dateFormatter.date(from: date) ?? Date(timeIntervalSince1970: 0)
+        self.date = dateFormatter.date(from: date as String)!
         
     }
     
@@ -179,153 +179,91 @@ struct SeasonMinimal{
     
 }
 
+protocol GPEventDelegate{
+    func onGPLoaded()
+}
 
-
-struct SeasonVODLoader{
+struct GPEvents{
     
-    init?(uid: String, completion: @escaping ([VideoFile]) -> ()){
-        
-        DispatchQueue.global().async {
-            let fields = "?fields=name,self,has_content,year,eventoccurrence_urls,eventoccurrence_urls__self,eventoccurrence_urls__name,eventoccurrence_urls__sessionoccurrence_urls,eventoccurrence_urls__official_name&fields_to_expand=eventoccurrence_urls"
+    static var shared = GPEvents()
+    var delegate:GPEventDelegate?
+    var grandPrix = String()
+    var startDate = Date(timeIntervalSince1970: 0)
+    var name = String()
+    var episodes: [VideoFile] = []
+    
+    mutating func getEvents(eventStr: String){
+        episodes.removeAll()
+        DispatchQueue.global().async{
+            let url = "https://f1tv.formula1.com/\(eventStr)?fields=official_name,name,sessionoccurrence_urls,sessionoccurrence_urls,sessionoccurrence_urls__content_urls,sessionoccurrence_urls__image_urls,sessionoccurrence_urls__channel_urls,sessionoccurrence_urls__content_urls__items,sessionoccurrence_urls__content_urls__title,sessionoccurrence_url__content_urls__created,start_date,sessionoccurrence_urls__image_urls__url,sessionoccurrence_urls__content_urls__created,sessionoccurrence_urls__start_time,sessionoccurrence_urls__content_urls__image_urls,sessionoccurrence_urls__content_urls__image_urls__url,sessionoccurrence_urls__session_name,sessionoccurrence_urls__status,sessionoccurrence_urls__name,sessionoccurrence_urls__channel_urls__name,sessionoccurrence_urls__channel_urls__self&fields_to_expand=sessionoccurrence_urls,sessionoccurrence_urls__content_urls,sessionoccurrence_urls__image_urls,sessionoccurrence_urls__content_urls__image_urls,sessionoccurrence_urls__channel_urls"
             
-            var request = URLRequest(url: URL(string: "https://f1tv.formula1.com/" + uid + fields)!)
+            var request = URLRequest(url: URL(string: url)!)
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue("en-en", forHTTPHeaderField: "accept-language")
-            let seasonGroup = DispatchGroup()
-            var seasonObj = VODSeason()
-            seasonGroup.enter()
-            DispatchQueue.global().async {
-                seasonGroup.enter()
-                let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
-                    if(error != nil){
-                        print(error.debugDescription)
-                    }
-                    guard let httpResponse = response as? HTTPURLResponse,
+            if LoginManager.shared.loggedIn() {
+                request.addValue(LoginManager.shared.cookie, forHTTPHeaderField: "cookie")
+            }
+            let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
+                if(error != nil){
+                    print(error.debugDescription)
+                }
+                guard let httpResponse = response as? HTTPURLResponse,
                     (200...299).contains(httpResponse.statusCode) else{
-                        seasonGroup.leave()
                         return;
-                    }
-                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
-                        seasonObj = VODSeason(json: json)!
-                        
-                        seasonGroup.leave()
-                    }
-                    
-                }
-                task.resume()
-                seasonGroup.leave()
-            }
-            seasonGroup.wait()
-            
-            
-            
-            var list: [VideoFile] = []
-            
-            let sessionGroup = DispatchGroup()
-            
-            for grandPrix in seasonObj.events{
-                
-                for session in grandPrix.sessionUrls{
-                    let fields = "?fields=status,channel_urls,name,content_urls,start_time,channel_urls__self,channel_urls__name,content_urls__title,content_urls__self,content_urls__items,content_urls__image_urls,content_urls__image_urls__url,image_urls,image_urls__url,content_urls__created&fields_to_expand=channel_urls,content_urls,content_urls__image_urls,image_urls"
-                    
-                    var sessionRequest = URLRequest(url: URL(string: "https://f1tv.formula1.com/" + session + fields)!)
-                    sessionRequest.addValue("en-en", forHTTPHeaderField: "accept-language")
-                    sessionGroup.enter()
-                    DispatchQueue.global().async {
-                        
-                        let task = URLSession.shared.dataTask(with: sessionRequest){(data, response, error) -> Void in
-                            if(error != nil){
-                                print(error.debugDescription)
-                            }
-                            guard let httpResponse = response as? HTTPURLResponse,
-                                (200...299).contains(httpResponse.statusCode) else{
-                                    
-                                    sessionGroup.leave()
-                                    return;
-                                    
-                            }
-                            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any] {
-                                
-                                let session = VODSession(json:json, grandPrix: grandPrix.name)
-                                
-                                if(session!.status == "replay" && session!.replay.title != ""){
-                                    list.append(session!.replay)
-                                }
-                                for video in session!.videos{
-                                    if video.title != ""{
-                                        list.append(video)
-                                    }
-                                }
-                                
-                            }
-                            sessionGroup.leave()
-                        }
-                        task.resume()
-                        
-                    }
                 }
                 
-                
+                if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
+                    guard let name = json["name"] as? String,
+                        let grandPrix = json["official_name"] as? String,
+                        let sessions = json["sessionoccurrence_urls"] as? [[String:Any]]
+                        else{
+                            return;
+                    }
+                    let date = json["start_date"] as? String ?? "1970-01-01"
+                    GPEvents.shared.name = name
+                    GPEvents.shared.grandPrix = grandPrix
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "YYYY-MM-dd"
+                    GPEvents.shared.startDate = formatter.date(from: date)!
+                    
+                    for session in sessions{
+                        let clearedSession = VODSession(json: session, grandPrix: GPEvents.shared.grandPrix)
+                        if clearedSession!.status == "expired" { continue }
+                        if clearedSession!.replay == nil && clearedSession?.videos.count == 0 { continue }
+                        if clearedSession!.replay != nil { GPEvents.shared.episodes.append(clearedSession!.replay!) }
+                        
+                        GPEvents.shared.episodes.append(contentsOf: clearedSession!.videos)
+                    }
+                    GPEvents.shared.delegate?.onGPLoaded()
+                    
+                }
                 
             }
-            sessionGroup.wait()
-            
-            
-            completion(list)
+            task.resume()
         }
     }
+    
+    
+    
+    
+    
 }
 
-struct VODSeason{
-    
-    init?(json: [String:Any]){
-        guard let year = json["year"] as? Int,
-            let hasContent = json["has_content"] as? Bool,
-            let name = json["name"] as? String,
-            let this = json["self"] as? String
-            else{
-                return nil
-        }
-        
-        self.year = year
-        self.name = name
-        self.this = this
-        self.hasContent = hasContent
-        
-        if let events = json["eventoccurrence_urls"] as? [[String:Any]]{
-            for event in events{
-                self.events.append(VODEvent(json: event)!)
-            }
-        }
-        
-    }
-    
-    init(){
-        
-    }
-    
-    var events: [VODEvent] = []
-    var year: Int = 0
-    var hasContent: Bool = false
-    var name: String = ""
-    var this: String = ""
-    
-}
+
+
 
 struct VODSession{
     
     init?(json: [String:Any], grandPrix: String = ""){
-        guard
-        let status = json["status"] as? String,
-        let startTime = json["start_time"] as? String,
-        let name = json["name"] as? String,
-        let replayChannels = json["channel_urls"] as? [[String:String]],
-        let videoContainers = json["content_urls"] as? [[String:Any]]
-            else{
-                return
-        }
+ 
+        
+        let videoContainers = json["content_urls"] as? [[String:Any]] ?? []
+        let replayChannels = json["channel_urls"] as? [[String:String]] ?? []
         
         
+        let name = json["session_name"] as? String ?? json["name"] as? String
+        let startTime = json["start_time"] as? String ?? "1972-01-01T01:01:00+00:00"
+        let status = json["status"] as? String ?? "Legacy"
         
         if let urls = json["image_urls"] as? [[String:String]]{
             if(urls.count > 0){
@@ -333,11 +271,16 @@ struct VODSession{
             }
         }
         
-        self.name = name
+        
+        self.name = name!
         self.status = status
         let formatter = ISO8601DateFormatter()
         self.sessionTime = formatter.date(from: startTime)!
         self.grandPrix = grandPrix
+        
+        if self.status == "expired"{
+            return;
+        }
         
         if(self.status == "replay"){
             self.replay = VideoFile(title: self.name + " Replay", thumbnail: self.image, assetType: "Replay", assetId: "", channels: replayChannels, date: sessionTime, grandPrix: grandPrix)
@@ -348,11 +291,14 @@ struct VODSession{
             let thumbnails = video["image_urls"] as? [[String:String]],
             let thumbnail = thumbnails.first?["url"],
             let assets = video["items"] as? [String],
-            let stringDate = video["created"] as? String,
             let asset = assets.first
                 else{
-                    return
+                    continue
             }
+            
+
+            let stringDate = video["created"] as? String ?? "1970-01-01T01:01:01+00:00"
+            
             let assetType = "VOD"
             
             let formatter = DateFormatter()
@@ -360,6 +306,7 @@ struct VODSession{
             let formattedDat = formatter.date(from: stringDate)
             
             self.videos.append(VideoFile(title: videoTitle, thumbnail: thumbnail, assetType: assetType, assetId: asset, channels: [], date: formattedDat!, grandPrix: grandPrix))
+            
         }
         
     }
@@ -368,7 +315,7 @@ struct VODSession{
     var name: String = ""
     var sessionTime: Date = Date()
     var videos: [VideoFile] = []
-    var replay: VideoFile = VideoFile()
+    var replay: VideoFile? = nil
     var image: String = ""
     var grandPrix: String = ""
 }
@@ -410,14 +357,32 @@ struct VideoFile{
         self.thumbnail = thumbnail
         self.assetType = assetType
         // Live, Replay, VOD
-        if(assetType == "Replay")
-        {
-            self.title = grandPrix + " " + self.title
-        }
+        
         self.assetId = assetId
         self.channels = channels
         self.date = date
         self.grandPrix = grandPrix
+    }
+    
+    init?(json: [String:Any], grandPrix: String){
+        guard
+            let title = json["title"] as? String,
+            let date = json["created"] as? String,
+            let items = json["items"] as? [String],
+            let asset = items.first,
+            let images = json["image_urls"] as? [[String:String]],
+            let thumbnail = images.first!["url"]
+            else{
+                return;
+    }
+        
+        self.title = title;
+        self.assetId = asset;
+        self.thumbnail = thumbnail;
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ"
+        self.date = formatter.date(from: date)!
+        
     }
     
     init(title: String, assetType: String, channels: [[String:String]]){

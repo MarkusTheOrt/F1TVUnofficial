@@ -133,6 +133,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="7we-2y-FzG"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="9Nz-ea-nld"/>
+                                </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCq-4M-TPg">
                                 <rect key="frame" x="90" y="700" width="1720" height="75"/>
@@ -141,6 +145,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="MR0-Dg-hj9">
+                                <rect key="frame" x="0.0" y="483" width="1920" height="264"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -159,6 +167,7 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="ActivityIndicator" destination="MR0-Dg-hj9" id="31d-ui-nBJ"/>
                         <outlet property="CurrentGP" destination="t24-H4-D3C" id="rtR-im-arO"/>
                         <outlet property="EventBtn" destination="RpT-3v-CWH" id="1T7-Nd-Qf4"/>
                         <outlet property="LoginButton" destination="5Bu-AM-5f9" id="4GQ-XH-osO"/>

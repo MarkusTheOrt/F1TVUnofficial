@@ -32,13 +32,24 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         ContentManager.shared.delegate = self
-        let seasons = ContentManager.shared.GetSeasons()
-        var i = 0;
-        for season in seasons{
-            if !season.hasContent { i += 1; continue }
-            tabBar.items?.append(UITabBarItem(title: String(season.year), image: nil, tag: i))
-            i += 1;
+        self.tabBar.isUserInteractionEnabled = false
+        DispatchQueue.global().async {
+            let seasons = ContentManager.shared.GetSeasons()
+                   var i = 0;
+                   var tabItems: [UITabBarItem] = []
+                   for season in seasons{
+                       if !season.hasContent { i += 1; continue }
+                       
+                       tabItems.append(UITabBarItem(title: String(season.year), image: nil, tag: i))
+                       i += 1;
+                   }
+            DispatchQueue.main.sync{
+                self.tabBar.items = tabItems
+                self.tabBar.isUserInteractionEnabled = true
+            }
+            
         }
+       
         
         // Do any additional setup after loading the view.
     }
