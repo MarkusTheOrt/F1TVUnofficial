@@ -10,11 +10,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverlayViewController" customModule="F1TVUnofficial" customModuleProvider="target">
             <connections>
                 <outlet property="bar" destination="152-MX-gRs" id="KBQ-Ew-qKT"/>
-                <outlet property="view" destination="152-MX-gRs" id="5dl-LU-bx9"/>
+                <outlet property="view" destination="152-MX-gRs" id="qUx-o3-fHH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tabBar contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="152-MX-gRs">
+        <tabBar contentMode="scaleToFill" semanticContentAttribute="playback" insetsLayoutMarginsFromSafeArea="NO" id="152-MX-gRs">
             <rect key="frame" x="0.0" y="0.0" width="1500" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

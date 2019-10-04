@@ -18,6 +18,8 @@
 		2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8B823409647008C7034 /* OverlayViewController.xib */; };
 		2833C8BD23428677008C7034 /* SeasonSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */; };
 		2833C8BE23428677008C7034 /* SeasonSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */; };
+		2833C8C12347A9BF008C7034 /* ChannelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */; };
+		2833C8C22347A9BF008C7034 /* ChannelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
@@ -43,6 +45,8 @@
 		2833C8B823409647008C7034 /* OverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
 		2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeasonSelectViewController.swift; path = Views/SeasonSelectViewController.swift; sourceTree = "<group>"; };
 		2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SeasonSelectViewController.xib; path = Views/SeasonSelectViewController.xib; sourceTree = "<group>"; };
+		2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewCell.swift; sourceTree = "<group>"; };
+		2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelViewCell.xib; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				28B7AF7A2334E6C800EC9478 /* VideoItemCell.swift */,
+				2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */,
+				2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -203,6 +209,7 @@
 				2833C8BE23428677008C7034 /* SeasonSelectViewController.xib in Resources */,
 				2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
+				2833C8C22347A9BF008C7034 /* ChannelViewCell.xib in Resources */,
 				2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +225,7 @@
 				2873C5F3233B64D800D54538 /* Login.swift in Sources */,
 				2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */,
 				281803ED233106B70019A496 /* Types.swift in Sources */,
+				2833C8C12347A9BF008C7034 /* ChannelViewCell.swift in Sources */,
 				281803CA2330D6D70019A496 /* AppDelegate.swift in Sources */,
 				28BFB1EB23353D7A000FF955 /* VOD.swift in Sources */,
 				281803D92330D7100019A496 /* HomeViewController.swift in Sources */,

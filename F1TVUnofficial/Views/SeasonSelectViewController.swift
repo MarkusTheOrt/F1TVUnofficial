@@ -24,7 +24,7 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
         indicator.startAnimating()
         DispatchQueue.global().async{
              self.season = ContentManager.shared.GetSeasons()[item.tag];
-             ContentManager.shared.getGrandPrixforSeason(season: self.season!)
+             _ = ContentManager.shared.getGrandPrixforSeason(season: self.season!)
         }
        
     }

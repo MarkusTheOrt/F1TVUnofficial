@@ -8,32 +8,38 @@
 
 import UIKit
 
-class OverlayViewController: UIViewController, UITabBarDelegate {
+class OverlayViewController: UIViewController, UITabBarDelegate{
     @IBOutlet weak var bar: UITabBar!
+
     
     
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        VideoPlayer.shared.changeToChannel(id: item.tag)
-    }
-    
+  
+ 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        bar.addGestureRecognizer(tap)
         var i = 0
         for item in VideoPlayer.shared.asset.channels{
             if item["name"] == "WIF"{
+                
                 bar.items?.append(UITabBarItem(title: "Main Feed", image: nil, tag: i))
                 i += 1
                 continue;
             }
+            
             bar.items?.append(UITabBarItem(title: item["name"], image: nil, tag: i))
             i += 1;
         }
         // Do any additional setup after loading the view.
     }
     
+    
+    @objc func handleTap(){
+         VideoPlayer.shared.changeToChannel(id: bar.selectedItem?.tag ?? 0)
+     }
 
     /*
     // MARK: - Navigation

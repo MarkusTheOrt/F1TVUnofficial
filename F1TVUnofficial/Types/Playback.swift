@@ -23,6 +23,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         self.nextChannel()
         let url = self.liveRequestRet()
         let playerItem = AVPlayerItem(url: URL(string: url)!)
+        
         self.View.player?.replaceCurrentItem(with: playerItem)
         completion(true)
 
@@ -65,6 +66,19 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
         let time = self.player.currentTime()
         let url = self.liveRequestRet()
         let playerItem = AVPlayerItem(url: URL(string: url)!)
+        let test = playerItem.asset as! AVURLAsset
+            if let group = playerItem.asset.mediaSelectionGroup(forMediaCharacteristic: .audible){
+                for option in group.options{
+                    if let TR = option.value(forKey: "title") as? String{
+                        if TR == "TeamRadio"{
+                            playerItem.select(option, in: group)
+                            break;
+                        }
+                    }
+                }
+            }
+            
+        
         self.View.player?.replaceCurrentItem(with: playerItem)
         self.player.seek(to: time)
     }
