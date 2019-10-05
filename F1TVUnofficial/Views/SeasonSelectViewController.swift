@@ -24,10 +24,13 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
         indicator.startAnimating()
         DispatchQueue.global().async{
              self.season = ContentManager.shared.GetSeasons()[item.tag];
+             
              _ = ContentManager.shared.getGrandPrixforSeason(season: self.season!)
         }
        
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,17 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
             DispatchQueue.main.sync{
                 self.tabBar.items = tabItems
                 self.tabBar.isUserInteractionEnabled = true
+                if ContentManager.shared.lastSelectedYear == 0{
+                    self.tabBar.selectedItem = self.tabBar.items?.first!
+                    ContentManager.shared.lastSelectedYear = self.tabBar.selectedItem!.tag;
+                }else{
+                    for item in self.tabBar.items!{
+                        if item.tag == ContentManager.shared.lastSelectedYear{
+                            self.tabBar.selectedItem = item;
+                            break;
+                        }
+                    }
+                }
             }
             
         }
@@ -72,6 +86,7 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         delegate?.OnNewEvent(sessions[indexPath.row])
+        ContentManager.shared.lastSelectedYear = self.tabBar.selectedItem!.tag;
         self.dismiss(animated: true)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

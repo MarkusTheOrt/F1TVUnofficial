@@ -145,8 +145,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="MR0-Dg-hj9">
-                                <rect key="frame" x="0.0" y="483" width="1920" height="264"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="MR0-Dg-hj9">
+                                <rect key="frame" x="928" y="583" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -240,8 +240,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OWW-BJ-qIF">
-                                <rect key="frame" x="940" y="809" width="40" height="40"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OWW-BJ-qIF">
+                                <rect key="frame" x="928" y="797" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to your F1 account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elX-Ma-3G6">
@@ -307,7 +307,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jav-BP-lQy">
-                                <rect key="frame" x="861" y="258" width="198" height="86"/>
+                                <rect key="frame" x="861" y="458" width="198" height="86"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
@@ -316,9 +316,9 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Jav-BP-lQy" firstAttribute="top" secondItem="0Jg-YP-XEx" secondAttribute="bottom" constant="260" id="0qM-6Q-Yql"/>
                             <constraint firstItem="0Jg-YP-XEx" firstAttribute="top" secondItem="Asf-qJ-820" secondAttribute="bottom" constant="92" id="AqT-Z4-gjN"/>
                             <constraint firstItem="Jav-BP-lQy" firstAttribute="centerX" secondItem="AKy-fS-K1d" secondAttribute="centerX" id="SqE-KC-xKL"/>
-                            <constraint firstItem="Jav-BP-lQy" firstAttribute="top" secondItem="0Jg-YP-XEx" secondAttribute="bottom" constant="60" id="shE-2b-a3s"/>
                             <constraint firstItem="0Jg-YP-XEx" firstAttribute="centerX" secondItem="AKy-fS-K1d" secondAttribute="centerX" id="ypw-rF-NI7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AKy-fS-K1d"/>

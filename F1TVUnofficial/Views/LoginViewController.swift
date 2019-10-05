@@ -22,7 +22,7 @@ class LoginViewController: UIViewController, loginDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        LoginManager.shared.delegate = self;
         // Do any additional setup after loading the view.
     }
     
@@ -32,6 +32,11 @@ class LoginViewController: UIViewController, loginDelegate {
             self.Indicator.isHidden = true
         }
         
+    }
+    
+    func onNoConnection() {
+        let controller = NoConnectionViewController(nibName: "NoConnectionViewcontroller", bundle: nil)
+        self.present(controller, animated: true)
     }
     
     @IBAction func OnClicked(_ sender: Any) {

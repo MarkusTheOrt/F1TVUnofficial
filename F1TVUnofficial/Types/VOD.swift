@@ -17,7 +17,7 @@ class ContentManager{
     
     var delegate: CMDelegate?
     static var shared = ContentManager()
-    
+    var lastSelectedYear: Int = 0
     
     private let apiUrl = "https://f1tv.formula1.com/api/race-season/?fields=year,name,self,has_content&order=-year"
     
@@ -56,6 +56,7 @@ class ContentManager{
             let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
                 if(error != nil){
                     print(error.debugDescription)
+                    AsyncGroup?.leave()
                 }
                 guard let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode) else{

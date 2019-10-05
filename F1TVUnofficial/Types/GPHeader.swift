@@ -11,18 +11,18 @@ import Foundation
 
 struct HomeContent{
     
-    init(completion: @escaping (Event) -> ()){
+    init(completion: @escaping (Event?) -> ()){
         
         var request = URLRequest(url: URL(string: url)!);
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("en-en", forHTTPHeaderField: "accept-language")
         let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
             if(error != nil){
-                //print(error.debugDescription)
+                completion(nil)
             }
             guard let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode) else{
-                    completion(Event())
+                    completion(nil)
                     return;
             }
             if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:[[String:Any]]]{

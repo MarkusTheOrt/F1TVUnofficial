@@ -20,6 +20,8 @@
 		2833C8BE23428677008C7034 /* SeasonSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */; };
 		2833C8C12347A9BF008C7034 /* ChannelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */; };
 		2833C8C22347A9BF008C7034 /* ChannelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */; };
+		2833C8C523488F52008C7034 /* NoConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8C323488F52008C7034 /* NoConnectionViewController.swift */; };
+		2833C8C623488F52008C7034 /* NoConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8C423488F52008C7034 /* NoConnectionViewController.xib */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
@@ -47,6 +49,8 @@
 		2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SeasonSelectViewController.xib; path = Views/SeasonSelectViewController.xib; sourceTree = "<group>"; };
 		2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewCell.swift; sourceTree = "<group>"; };
 		2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelViewCell.xib; sourceTree = "<group>"; };
+		2833C8C323488F52008C7034 /* NoConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionViewController.swift; sourceTree = "<group>"; };
+		2833C8C423488F52008C7034 /* NoConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoConnectionViewController.xib; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 				2873C5F6233F4E6900D54538 /* AccountViewController.swift */,
 				2833C8B723409647008C7034 /* OverlayViewController.swift */,
 				2833C8B823409647008C7034 /* OverlayViewController.xib */,
+				2833C8C323488F52008C7034 /* NoConnectionViewController.swift */,
+				2833C8C423488F52008C7034 /* NoConnectionViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +216,7 @@
 				2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */,
 				281803CF2330D6D70019A496 /* Main.storyboard in Resources */,
 				2833C8C22347A9BF008C7034 /* ChannelViewCell.xib in Resources */,
+				2833C8C623488F52008C7034 /* NoConnectionViewController.xib in Resources */,
 				2833C8BA23409647008C7034 /* OverlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2833C8C523488F52008C7034 /* NoConnectionViewController.swift in Sources */,
 				281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */,
 				2873C5F3233B64D800D54538 /* Login.swift in Sources */,
 				2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */,
@@ -374,7 +382,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -396,7 +404,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3S8578M54Y;
 				INFOPLIST_FILE = F1TVUnofficial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

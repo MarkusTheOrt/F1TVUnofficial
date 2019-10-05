@@ -11,6 +11,7 @@ import Foundation
 protocol loginDelegate{
     func onLoginError(_ message: String)
     func onLoginSuccess()
+    func onNoConnection()
 }
 
 class LoginManager{
@@ -67,7 +68,19 @@ class LoginManager{
         self.loginGroup.enter()
         let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
             if(error != nil){
-                print(error.debugDescription)
+                
+                
+                if let nserror = error as NSError?{
+                    if nserror.code == NSURLErrorNotConnectedToInternet{
+                        
+                        self.loginGroup.leave()
+                        
+                        self.delegate?.onNoConnection();
+                        
+                        
+                    }
+                }
+                
             }
             
             guard let httpResponse = response as? HTTPURLResponse,

@@ -37,17 +37,22 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     required init?(coder: NSCoder){
         super.init(coder: coder)
+        LoginManager.shared.delegate = self
         GPEvents.shared.delegate = self
         
         let initGroup = DispatchGroup()
         
         initGroup.enter()
         _ = HomeContent(){(event) -> Void in
-            self.updateHomeItems(event: event)
+            if event == nil{
+                
+                return;
+            }
+            self.updateHomeItems(event: event!)
             initGroup.leave()
             
         }
-        initGroup.wait()
+        
     }
     
     
@@ -69,6 +74,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as? VideoItemCell{
+            if GPEvents.shared.episodes.count < indexPath.row{
+                return cell;
+            }
             cell.configureCell(video: GPEvents.shared.episodes[indexPath.row])
             
             return cell
@@ -102,8 +110,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             _ = HomeContent(){(homeItems) -> Void in
                 var needsUpdated = false
-                if(self.homeEvent.this == homeItems.this){
-                    for session in homeItems.sessions{
+                if(self.homeEvent.this == homeItems!.this){
+                    for session in homeItems!.sessions{
                         for homeSession in self.homeEvent.sessions{
                             if(session.this == homeSession.this){
                                 if(session.status != homeSession.status){
@@ -116,7 +124,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     needsUpdated = true
                 }
                 if(needsUpdated){
-                    self.updateHomeItems(event: homeItems)
+                    self.updateHomeItems(event: homeItems!)
                 }
             }
         }
@@ -210,7 +218,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func DownloadHomeSets(){
         _ = HomeContent(){(event) -> Void in
-            self.updateHomeItems(event: event)
+            self.updateHomeItems(event: event!)
             
             
         }
@@ -235,6 +243,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        LoginManager.shared.delegate = self
         //DownloadSeasonItems()
         HomeTimer()
         VideoList.dataSource = self
@@ -256,10 +265,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidAppear(_ animated: Bool) {
         checkLoggedIn()
+        LoginManager.shared.delegate = self
         if(LoginManager.shared.loggedIn()){
             self.LoginButton.setTitle(LoginManager.shared.firstName, for: .normal)
         }
     }
+    
+    func onNoConnection() {
+        DispatchQueue.main.sync{
+            let controller = NoConnectionViewController(nibName: "NoConnectionViewController", bundle: nil)
+            self.present(controller, animated: true)
+        }
+        
+    }
+    
     @IBAction func OnAccountBtn(_ sender: Any){
         if LoginManager.shared.loggedIn(){
             let storyBoard = UIStoryboard(name: "Main", bundle: nil);
