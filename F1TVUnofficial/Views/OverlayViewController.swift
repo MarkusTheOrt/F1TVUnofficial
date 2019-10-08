@@ -29,6 +29,16 @@ class OverlayViewController: UIViewController, UITabBarDelegate{
                 i += 1
                 continue;
             }
+            else if item["name"] == "data"{
+                bar.items?.append(UITabBarItem(title: "Data", image: nil, tag: i))
+                i += 1;
+                continue;
+            }
+            else if item["name"] == "driver"{
+                bar.items?.append(UITabBarItem(title: "Driver Tracker", image: nil, tag: i))
+                i += 1
+                continue;
+            }
             
             bar.items?.append(UITabBarItem(title: item["name"], image: nil, tag: i))
             i += 1;

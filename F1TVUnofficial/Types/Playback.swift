@@ -55,10 +55,12 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
     private var hasSource = false
     public var asset = VideoFile()
     private var channelIdx = 0
+
     
     public func getPlayer() -> AVPlayer{
         return player
     }
+    
     
     public func changeToChannel(id: Int){
         if channelIdx == id { return; }
@@ -76,14 +78,20 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
                 }
             }
         }
-        self.View.player?.replaceCurrentItem(with: playerItem)
-        self.player.seek(to: time)
+        
+        playerItem.seek(to: time, completionHandler: {_ in
+            
+        self.player.replaceCurrentItem(with: playerItem)
+        })
+        
+        
     }
     
     public func requestVideoURL(asset: VideoFile, context: UIViewController){
         if !LoginManager.shared.loggedIn() { return }
 
         self.asset = asset
+        self.channelIdx = 0;
         DispatchQueue.global().async{
             switch asset.assetType{
             case "Replay":
@@ -153,6 +161,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
                 netGroup.leave()
                 return
             }
+             print(tempUrl);
             videoUrl = tempUrl
             netGroup.leave()
             

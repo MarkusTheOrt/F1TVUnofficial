@@ -38,28 +38,32 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
         self.tabBar.isUserInteractionEnabled = false
         DispatchQueue.global().async {
             let seasons = ContentManager.shared.GetSeasons()
-                   var i = 0;
-                   var tabItems: [UITabBarItem] = []
-                   for season in seasons{
-                       if !season.hasContent { i += 1; continue }
-                       
-                       tabItems.append(UITabBarItem(title: String(season.year), image: nil, tag: i))
-                       i += 1;
-                   }
-            DispatchQueue.main.sync{
+           var i = 0;
+           var tabItems: [UITabBarItem] = []
+           for season in seasons{
+               if !season.hasContent { i += 1; continue }
+               
+               tabItems.append(UITabBarItem(title: String(season.year), image: nil, tag: i))
+               i += 1;
+           }
+           DispatchQueue.main.sync{
                 self.tabBar.items = tabItems
                 self.tabBar.isUserInteractionEnabled = true
                 if ContentManager.shared.lastSelectedYear == 0{
                     self.tabBar.selectedItem = self.tabBar.items?.first!
                     ContentManager.shared.lastSelectedYear = self.tabBar.selectedItem!.tag;
+                    self.setNeedsFocusUpdate()
+                    self.updateFocusIfNeeded()
                 }else{
                     for item in self.tabBar.items!{
                         if item.tag == ContentManager.shared.lastSelectedYear{
                             self.tabBar.selectedItem = item;
+                            self.setNeedsFocusUpdate()
                             break;
                         }
                     }
                 }
+                self.updateFocusIfNeeded()
             }
             
         }

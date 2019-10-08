@@ -43,15 +43,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let initGroup = DispatchGroup()
         
         initGroup.enter()
-        _ = HomeContent(){(event) -> Void in
-            if event == nil{
-                
-                return;
+        DispatchQueue.global().async{
+            _ = HomeContent(){(event) -> Void in
+                if event == nil{
+                    //initGroup.leave()
+                    return;
+                }
+                self.updateHomeItems(event: event!, group: initGroup)
+                initGroup.leave()
             }
-            self.updateHomeItems(event: event!)
-            initGroup.leave()
-            
         }
+        
+        initGroup.wait()
         
     }
     
@@ -124,7 +127,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     needsUpdated = true
                 }
                 if(needsUpdated){
-                    self.updateHomeItems(event: homeItems!)
+                    self.updateHomeItems(event: homeItems!, group: nil)
                 }
             }
         }
@@ -132,22 +135,27 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
-    func updateHomeItems(event: Event){
+    func updateHomeItems(event: Event, group: DispatchGroup?){
         if(event.image.isEmpty){
             return;
         }
+        group?.enter()
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: URL(string: event.image)!){
                 if let image = UIImage(data: data){
+                    group?.leave()
                     DispatchQueue.main.async{
                         UIView.transition(with: self!.PosterImage, duration: 1.0, options: .transitionCrossDissolve, animations: {
                             self?.PosterImage.image = image
                         })
                         
+                        
+                        
                     }
                 }
             }
         }
+        
         DispatchQueue.global().async {
             self.homeEvent = event
             
@@ -199,6 +207,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     self.EventBtn.setTitle(event.officialName, for: .normal)
                 }, completion: nil)
             }
+            
         }
     }
     
@@ -218,7 +227,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func DownloadHomeSets(){
         _ = HomeContent(){(event) -> Void in
-            self.updateHomeItems(event: event!)
+            self.updateHomeItems(event: event!, group: nil)
             
             
         }
