@@ -31,11 +31,9 @@ class SeasonSelectViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         ContentManager.shared.delegate = self
-        self.tabBar.isUserInteractionEnabled = false
         DispatchQueue.global().async {
             let seasons = ContentManager.shared.GetSeasons()
            var i = 0;

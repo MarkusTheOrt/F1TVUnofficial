@@ -16,10 +16,19 @@ protocol loginDelegate{
 
 class LoginManager{
     
-    static let shared = LoginManager()
+    static let shared = LoginManager();
+    var delegate:loginDelegate?;
+    private var user: String = String();
+    private var pass: String = String();
+    private var subscriptionToken = String();
+    private var identityProvider = String();
+    public var authToken = String();
+    private var isLoggedIn: Bool = false;
+    public var cookie: String = String();
+    public var firstName: String = "Login";
     
-    var delegate:loginDelegate?
-    var successDelegate:loginDelegate?
+    
+    let loginGroup = DispatchGroup();
     
     func loggedIn() -> Bool{
         if isLoggedIn{
@@ -39,19 +48,23 @@ class LoginManager{
         return UserDefaults.standard.object(forKey: "user") != nil && UserDefaults.standard.object(forKey: "pass") != nil
     }
     
+    /**
+     * Logging in using the view controller (no saved data)
+     */
     func loginWithCreds(user: String, pass: String){
-        var request = URLRequest(url: URL(string: url)!)
+        if isLoggedIn { return; }
+        var request = URLRequest(url: URL(string: "https://api.formula1.com/v1/account/Subscriber/CreateSession")!)
         let body = "{\"Login\": \"\(user)\", \"Password\": \"\(pass)\"}"
         request.httpBody = body.data(using: .utf8)
         self.user = user
         self.pass = pass
-        self.loginGroup.enter()
         loginTask(request: request)
-        self.loginGroup.wait()
         
     }
     
-    
+    /**
+     * Gets Session cookie from the api over at account.formula1.com
+     */
     func loginTask(request: URLRequest){
         var request = request
         request.addValue("AH5B283RFx1K2AfT6z99ndGE7L2VZL62", forHTTPHeaderField: "apiKey");
@@ -59,7 +72,6 @@ class LoginManager{
         request.addValue("en-US", forHTTPHeaderField: "CD-Language")
         request.addValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
         request.addValue("no-cache", forHTTPHeaderField: "Cache-Control")
-        request.addValue("PostmanRuntime/7.17.1", forHTTPHeaderField: "User-Agent")
         request.addValue("api.formula1.com", forHTTPHeaderField: "Host")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpShouldHandleCookies = true
@@ -68,19 +80,12 @@ class LoginManager{
         self.loginGroup.enter()
         let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
             if(error != nil){
-                
-                
                 if let nserror = error as NSError?{
                     if nserror.code == NSURLErrorNotConnectedToInternet{
-                        
                         self.loginGroup.leave()
-                        
                         self.delegate?.onNoConnection();
-                        
-                        
                     }
                 }
-                
             }
             
             guard let httpResponse = response as? HTTPURLResponse,
@@ -88,7 +93,7 @@ class LoginManager{
                     self.loginGroup.leave()
                     return;
             }
-            
+
             if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
                 guard let Fault = json["Fault"] as? [String:Any]
                     else{
@@ -108,10 +113,11 @@ class LoginManager{
                         }
                         
                         
-                        self.cookie = "account-info:{\"data\": {\"subscriptionStatus\": \"\(subscriptionStatus)\", \"subscriptionToken\": \"\(subscriptionToken)\"},\"profile\": {\"SubscriberId\":\"\(subId)\",\"country\":\"\(country)\",\"firstName\":\"\(firstName)\"}}"
+                        self.cookie = "account-info:{\"data\":{\"subscriptionStatus\":\"\(subscriptionStatus)\",\"subscriptionToken\":\"\(subscriptionToken)\"},\"profile\":{\"SubscriberId\":\"\(subId)\",\"country\":\"\(country)\",\"firstName\":\"\(firstName)\"}}"
                         
                         self.isLoggedIn = true;
-                        self.firstName = firstName
+                        self.firstName = firstName;
+                        self.subscriptionToken = subscriptionToken;
                         if self.user != "" && self.pass != "" {
                             UserDefaults.standard.setValue(self.user, forKey: "user")
                             UserDefaults.standard.setValue(self.pass, forKey: "pass")
@@ -123,33 +129,120 @@ class LoginManager{
                        
 
                 }
-                self.loginGroup.leave()
-                self.delegate?.onLoginError(Fault["Message"] as! String)
                 
+                self.delegate?.onLoginError(Fault["Message"] as! String)
+                self.loginGroup.leave()
             }
             
         }
         task.resume()
-        self.loginGroup.leave()
+        self.loginGroup.wait();
+        GetIdentityProvider();
     }
     
+    /**
+     * logging in using saved data
+     */
     func loginFromSave(){
-        
-        if UserDefaults.standard.object(forKey: "user") == nil || UserDefaults.standard.object(forKey: "pass") == nil{
-            
+        if(isLoggedIn) { return; }
+        if UserDefaults.standard.object(forKey: "user") == nil
+        || UserDefaults.standard.object(forKey: "pass") == nil {
             return;
         }
         
         let body = "{\"Login\": \"\(UserDefaults.standard.string(forKey: "user")!)\", \"Password\": \"\(UserDefaults.standard.string(forKey: "pass")!)\"}"
-        
-        var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: "https://api.formula1.com/v1/account/Subscriber/CreateSession")!)
         request.httpBody = body.data(using: .utf8)
-        self.loginGroup.enter()
         loginTask(request: request)
+    }
+    
+    
+    /**
+     * Retrieves the users Identity provider.
+     */
+    func GetIdentityProvider() {
+        if !self.isLoggedIn {
+            return;
+        }
+        var request = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/identity-providers/?name=dlbi")!);
+        request.addValue("application/json", forHTTPHeaderField: "Accept");
+        request.addValue("en-EN", forHTTPHeaderField: "accept-language");
+        request.addValue(self.cookie, forHTTPHeaderField: "cookie");
+        self.loginGroup.enter()
+        let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
+            if error != nil {
+                print(error.debugDescription);
+                self.loginGroup.enter();
+                return;
+            }
+           
+            guard let httpResponse = response as? HTTPURLResponse,
+               (200...299).contains(httpResponse.statusCode) else {
+                print("Identity Error");
+                    self.loginGroup.leave();
+                    return;
+            }
+            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
+                guard let objects = json["objects"] as? [[String:Any]],
+                    let identityProvider = objects.first!["self"] as? String
+                    else {
+                        print("Error Retrieveing Identity Provider.");
+                        self.loginGroup.leave();
+                        return;
+                }
+                self.identityProvider = identityProvider;
+            }
+            self.loginGroup.leave();
+        }
+        task.resume();
         self.loginGroup.wait()
+        GetApiToken();
+    }
+    
+    /**
+     * Retrieves the JWT Token from the API. Requires to be logged in successfully.
+     */
+    func GetApiToken(){
+        if(!isLoggedIn) { return; }
+        var request = URLRequest(url: URL(string: "https://f1tv.formula1.com/api/social-authenticate/")!);
+        request.addValue("application/json", forHTTPHeaderField: "Accept");
+        request.addValue("en-EN", forHTTPHeaderField: "accept-language");
+        request.httpMethod = "POST";
+        let httpBody = "{\"identity_provider_url\": \"\(self.identityProvider)\", \"access_token\":\"\(self.subscriptionToken)\"}";
+        request.httpBody = httpBody.data(using: .utf8);
+        self.loginGroup.enter();
+        let task = URLSession.shared.dataTask(with: request){(data, response, error) -> Void in
+            if error != nil {
+                print(error.debugDescription);
+                self.loginGroup.enter();
+                return;
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+               (200...299).contains(httpResponse.statusCode) else {
+                print("Identity Error");
+                    self.loginGroup.leave();
+                    return;
+            }
+            if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:String]{
+                guard let token = json["token"]
+                    else {
+                        print("Error Receiving JWT Token");
+                        self.loginGroup.leave()
+                        return;
+                }
+                self.authToken = token;
+            }
+            self.loginGroup.leave();
+        }
+        task.resume()
+        self.loginGroup.wait();
         
     }
     
+    /**
+     * Removes saved login information. removes all session info.
+     */
     func logout(){
         cookie = String()
         isLoggedIn = false
@@ -160,11 +253,5 @@ class LoginManager{
         UserDefaults.standard.setValue(nil, forKey: "pass")
     }
     
-    public var cookie: String = String()
-    private var isLoggedIn: Bool = false
-    public var firstName: String = "Login"
-    private var user: String = String()
-    private var pass: String = String()
-    private let url = "https://api.formula1.com/v1/account/Subscriber/CreateSession"
-    let loginGroup = DispatchGroup()
+
 }

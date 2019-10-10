@@ -41,6 +41,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         GPEvents.shared.delegate = self
         
         let initGroup = DispatchGroup()
+        _ = LoginManager.shared.loggedIn();
         
         initGroup.enter()
         DispatchQueue.global().async{

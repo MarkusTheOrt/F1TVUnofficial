@@ -22,6 +22,7 @@
 		2833C8C22347A9BF008C7034 /* ChannelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */; };
 		2833C8C523488F52008C7034 /* NoConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833C8C323488F52008C7034 /* NoConnectionViewController.swift */; };
 		2833C8C623488F52008C7034 /* NoConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2833C8C423488F52008C7034 /* NoConnectionViewController.xib */; };
+		285B80E3234E0BDD002D1DEE /* Entitlement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285B80E2234E0BDD002D1DEE /* Entitlement.swift */; };
 		2873C5F3233B64D800D54538 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F2233B64D800D54538 /* Login.swift */; };
 		2873C5F5233ED2FC00D54538 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */; };
 		2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873C5F6233F4E6900D54538 /* AccountViewController.swift */; };
@@ -45,12 +46,13 @@
 		2824D044233F99B0004E63D4 /* Playback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playback.swift; sourceTree = "<group>"; };
 		2833C8B723409647008C7034 /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		2833C8B823409647008C7034 /* OverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
-		2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeasonSelectViewController.swift; path = Views/SeasonSelectViewController.swift; sourceTree = "<group>"; };
-		2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SeasonSelectViewController.xib; path = Views/SeasonSelectViewController.xib; sourceTree = "<group>"; };
+		2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelectViewController.swift; sourceTree = "<group>"; };
+		2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeasonSelectViewController.xib; sourceTree = "<group>"; };
 		2833C8BF2347A9BF008C7034 /* ChannelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewCell.swift; sourceTree = "<group>"; };
 		2833C8C02347A9BF008C7034 /* ChannelViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelViewCell.xib; sourceTree = "<group>"; };
 		2833C8C323488F52008C7034 /* NoConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionViewController.swift; sourceTree = "<group>"; };
 		2833C8C423488F52008C7034 /* NoConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoConnectionViewController.xib; sourceTree = "<group>"; };
+		285B80E2234E0BDD002D1DEE /* Entitlement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlement.swift; sourceTree = "<group>"; };
 		2873C5F2233B64D800D54538 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2873C5F4233ED2FC00D54538 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		2873C5F6233F4E6900D54538 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -100,8 +102,6 @@
 				281803D22330D6D80019A496 /* Info.plist */,
 				281803DB2330D71F0019A496 /* Views */,
 				28B7AF762334E5EF00EC9478 /* Types */,
-				2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */,
-				2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */,
 			);
 			path = F1TVUnofficial;
 			sourceTree = "<group>";
@@ -109,10 +109,12 @@
 		281803DB2330D71F0019A496 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2833C8BB23428677008C7034 /* SeasonSelectViewController.swift */,
 				281803DC2330D8A50019A496 /* LoginViewController.swift */,
 				281803D82330D7100019A496 /* HomeViewController.swift */,
 				2873C5F6233F4E6900D54538 /* AccountViewController.swift */,
 				2833C8B723409647008C7034 /* OverlayViewController.swift */,
+				2833C8BC23428677008C7034 /* SeasonSelectViewController.xib */,
 				2833C8B823409647008C7034 /* OverlayViewController.xib */,
 				2833C8C323488F52008C7034 /* NoConnectionViewController.swift */,
 				2833C8C423488F52008C7034 /* NoConnectionViewController.xib */,
@@ -139,6 +141,7 @@
 				28BFB1EA23353D7A000FF955 /* VOD.swift */,
 				2873C5F2233B64D800D54538 /* Login.swift */,
 				2824D044233F99B0004E63D4 /* Playback.swift */,
+				285B80E2234E0BDD002D1DEE /* Entitlement.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2833C8C523488F52008C7034 /* NoConnectionViewController.swift in Sources */,
+				285B80E3234E0BDD002D1DEE /* Entitlement.swift in Sources */,
 				281803DD2330D8A50019A496 /* LoginViewController.swift in Sources */,
 				2873C5F3233B64D800D54538 /* Login.swift in Sources */,
 				2873C5F7233F4E6900D54538 /* AccountViewController.swift in Sources */,

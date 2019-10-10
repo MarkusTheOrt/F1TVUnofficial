@@ -89,7 +89,7 @@ class VideoPlayer : NSObject, AVPlayerViewControllerDelegate{
     
     public func requestVideoURL(asset: VideoFile, context: UIViewController){
         if !LoginManager.shared.loggedIn() { return }
-
+        //if !Entitlement.isAuthorized(asset: asset) { return; }
         self.asset = asset
         self.channelIdx = 0;
         DispatchQueue.global().async{
