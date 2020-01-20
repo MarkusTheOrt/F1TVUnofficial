@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="15702" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AccountView" customModule="GrandPrixLive" customModuleProvider="target">
+            <connections>
+                <outlet property="mail" destination="Ci3-wc-S23" id="BGs-PE-kok"/>
+                <outlet property="name" destination="Pu7-M2-fUP" id="1fA-sm-2Mt"/>
+                <outlet property="plan" destination="TCN-Ic-OCs" id="did-iL-Yhi"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account-Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGt-tP-BDM">
+                    <rect key="frame" x="106" y="157" width="349" height="46"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 0.01" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeI-Yp-dQE">
+                    <rect key="frame" x="1651" y="985" width="163" height="35"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-Te-riz">
+                    <rect key="frame" x="106" y="257" width="118" height="138"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cds-5C-oKl">
+                            <rect key="frame" x="0.0" y="0.0" width="118" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh4-mW-h4X">
+                            <rect key="frame" x="0.0" y="46" width="118" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wZ-X6-gfY">
+                            <rect key="frame" x="0.0" y="92" width="118" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="epP-qY-GqX">
+                    <rect key="frame" x="255" y="257" width="16" height="138"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu7-M2-fUP">
+                            <rect key="frame" x="0.0" y="0.0" width="16" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ci3-wc-S23">
+                            <rect key="frame" x="0.0" y="46" width="16" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCN-Ic-OCs">
+                            <rect key="frame" x="0.0" y="92" width="16" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-6x-an0">
+                    <rect key="frame" x="106" y="419" width="268" height="62"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="62" id="Swh-4P-pH3"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="Log out"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="oeI-Yp-dQE" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="1ey-Sz-Ec7"/>
+                <constraint firstItem="Mvf-6x-an0" firstAttribute="leading" secondItem="VSY-Te-riz" secondAttribute="leading" id="1g2-Fp-wdS"/>
+                <constraint firstItem="VSY-Te-riz" firstAttribute="top" secondItem="LGt-tP-BDM" secondAttribute="bottom" constant="54" id="8pM-kl-pMG"/>
+                <constraint firstItem="Pmt-tb-8Ig" firstAttribute="trailing" secondItem="Mvf-6x-an0" secondAttribute="trailing" constant="1456" id="DO8-TF-qtS"/>
+                <constraint firstItem="LGt-tP-BDM" firstAttribute="top" secondItem="Pmt-tb-8Ig" secondAttribute="top" id="DSr-hA-0Jp"/>
+                <constraint firstItem="LGt-tP-BDM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="E96-2r-WUI"/>
+                <constraint firstItem="VSY-Te-riz" firstAttribute="leading" secondItem="LGt-tP-BDM" secondAttribute="leading" id="HSY-Ra-7jB"/>
+                <constraint firstItem="epP-qY-GqX" firstAttribute="top" secondItem="VSY-Te-riz" secondAttribute="top" id="Kb6-dx-kiD"/>
+                <constraint firstItem="epP-qY-GqX" firstAttribute="leading" secondItem="VSY-Te-riz" secondAttribute="trailing" constant="31" id="dXJ-LV-KuA"/>
+                <constraint firstItem="oeI-Yp-dQE" firstAttribute="bottom" secondItem="Pmt-tb-8Ig" secondAttribute="bottom" id="hTb-eC-AKQ"/>
+                <constraint firstItem="Mvf-6x-an0" firstAttribute="top" secondItem="VSY-Te-riz" secondAttribute="bottom" constant="24" id="ypP-fu-yB9"/>
+            </constraints>
+            <simulatedTabBarMetrics key="simulatedTopBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Pmt-tb-8Ig"/>
+            <point key="canvasLocation" x="69" y="107"/>
+        </view>
+    </objects>
+</document>
