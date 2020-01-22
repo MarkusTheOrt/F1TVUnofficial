@@ -39,6 +39,8 @@
 		28A2F76E23D4BB4000838C66 /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A2F76C23D4BB4000838C66 /* ContentCollectionViewCell.xib */; };
 		28BBBF0123D5E56700C01F01 /* SingleShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBBEFF23D5E56700C01F01 /* SingleShowViewController.swift */; };
 		28BBBF0223D5E56700C01F01 /* SingleShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBBF0023D5E56700C01F01 /* SingleShowViewController.xib */; };
+		28BBBF0723D735A700C01F01 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBBF0623D735A700C01F01 /* Season.swift */; };
+		28BBBF0923D7360400C01F01 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBBF0823D7360400C01F01 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,8 @@
 		28A2F76C23D4BB4000838C66 /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentCollectionViewCell.xib; sourceTree = "<group>"; };
 		28BBBEFF23D5E56700C01F01 /* SingleShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleShowViewController.swift; sourceTree = "<group>"; };
 		28BBBF0023D5E56700C01F01 /* SingleShowViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleShowViewController.xib; sourceTree = "<group>"; };
+		28BBBF0623D735A700C01F01 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
+		28BBBF0823D7360400C01F01 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,8 @@
 				28A2F76523D47B1400838C66 /* ShowSet.swift */,
 				28A2F76723D47B7E00838C66 /* Asset.swift */,
 				28A2F76923D47C2D00838C66 /* Image.swift */,
+				28BBBF0623D735A700C01F01 /* Season.swift */,
+				28BBBF0823D7360400C01F01 /* Event.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -278,6 +284,8 @@
 				284F39EB23CA216F00880D34 /* SeasonViewController.swift in Sources */,
 				28A2F76223D477A200838C66 /* ShowSlugs.swift in Sources */,
 				284F39E523CA213B00880D34 /* AccountViewController.swift in Sources */,
+				28BBBF0723D735A700C01F01 /* Season.swift in Sources */,
+				28BBBF0923D7360400C01F01 /* Event.swift in Sources */,
 				284F39E923CA216200880D34 /* LibraryViewController.swift in Sources */,
 				284F39F923CA623500880D34 /* AccountView.swift in Sources */,
 				284F3A1423CE42CA00880D34 /* ContentViewController.swift in Sources */,

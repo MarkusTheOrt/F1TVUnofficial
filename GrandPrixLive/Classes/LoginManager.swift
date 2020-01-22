@@ -73,6 +73,7 @@ class LoginManager{
     public var vdelegate: viewDelegate? = nil
     public static let shared = LoginManager()
     
+    // Load what we have from the vault
     init(){
         loadData()
     }
@@ -81,6 +82,10 @@ class LoginManager{
         return "{\"Language\":\"en-US\",\"Password\":\"\(pass)\",\"Login\":\"\(mail)\",\"DeviceType\":10}"
     }
     
+    
+    /**
+     * Authenticates using email and password, retrieveing Subscription Token (and other Subscriber related stuff)
+     */
     func Login(mail: String, pass: String){
         loadData()
         // Skip if user is already logged in
@@ -136,6 +141,9 @@ class LoginManager{
         return "{\"AllowPinlessPurchase\":true,\"PhysicalDevice\":{\"DeviceTypeCode\":10,\"DeviceId\":\"\(UIDevice.current.identifierForVendor?.uuidString ?? "GPLive-TVOS")\",\"PhysicalDeviceTypeCode\":1002},\"CreateSession\":true}"
     }
     
+    /**
+     * Registers current device onto the users F1 Account, there is a max of 6 devices that can be active at once.
+     */
     private func registerDevice(){
         var request = URLRequest(url: URL(string: authURLs.registerDevice.rawValue)!)
         
@@ -171,10 +179,16 @@ class LoginManager{
         task.resume()
     }
     
+    /**
+     * Makes the Auth HTTP Body as String
+     */
     private func buildAuthBody() -> String{
         return "{\"identity_provider_url\":\"/api/identity-providers/iden_732298a17f9c458890a1877880d140f3/\",\"access_token\":\"\(userData.subscriptionToken)\"}"
     }
     
+    /**
+     * Authorizes using Subscription Token and receiving a valid JWT Token
+     */
     func socialAuth(){
         var request = URLRequest(url: URL(string: authURLs.socialAuth.rawValue)!)
         request.setValue("*/*", forHTTPHeaderField: "Accept")
@@ -205,6 +219,7 @@ class LoginManager{
         }
         task.resume()
     }
+    
     
     func synchTest(){
         var request = URLRequest(url: URL(string: authURLs.syncSubscriptions.rawValue)!)
@@ -241,6 +256,9 @@ class LoginManager{
         task.resume()
     }
     
+    /**
+     * Returns the current Plan on the same thread
+     */
     func getPlanDataSynch(plan: String) -> String{
         let taskGroup = DispatchGroup()
         var retString = ""
@@ -268,8 +286,6 @@ class LoginManager{
             if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:Any]{
                 if let plan = json["name"] as? String{
                     retString = plan
-                    print(plan)
-                    taskGroup.leave()
                 }
             }
             
@@ -281,14 +297,20 @@ class LoginManager{
         return retString
     }
     
+    
+    /**
+     * Save neccessary user data to authenticate in further attempts
+     */
     func saveData(){
         UserDefaults.standard.set(userData.subscriptionToken, forKey: "subToken")
         UserDefaults.standard.set(userData.firstName, forKey: "firstName")
         UserDefaults.standard.set(userData.lastName, forKey: "lastName")
         UserDefaults.standard.set(userData.mail, forKey: "mail")
-        print("saved")
     }
     
+    /**
+     * Load data to reauthenticate using the subtoken
+     */
     func loadData(){
         userData.subscriptionToken = UserDefaults.standard.string(forKey: "subToken") ?? ""
         userData.firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""

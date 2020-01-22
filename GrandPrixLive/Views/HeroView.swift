@@ -84,6 +84,17 @@ class HeroView: UIView, HeroDelegate {
                 }
             })
         }
+        
+        _ = Season("/api/race-season/current"){(season) -> Void in
+            let ev = season.events.first!
+            ev.sessions.forEach(){(sess) -> Void in
+                sess.resolve()
+                print(sess.name)
+                print(sess.type)
+                print("================")
+            }
+        }
+        
     }
     
     @IBAction func onPlayButtonPressed(_ sender: Any){
